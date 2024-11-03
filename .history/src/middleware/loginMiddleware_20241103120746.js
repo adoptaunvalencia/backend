@@ -26,7 +26,8 @@ const loginUser = async (req, res) => {
     expiresIn: '1h',
   });
 
-  next()
+  // Send the generated token back to the client
+  res.json({ token });
 };
 
 module.exports = loginUser;

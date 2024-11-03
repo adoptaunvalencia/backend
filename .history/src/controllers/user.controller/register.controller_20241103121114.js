@@ -23,7 +23,7 @@ const RegisterController = async (req, res, next) => {
       return;
     };
 
-    const salt = await bcrypt.genSalt(10);
+    const salt = await bcrypt.genSalt(12);
     const hashPassword = await bcrypt.hash(password, salt)
 
     await User.create({

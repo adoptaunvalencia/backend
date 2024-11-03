@@ -6,8 +6,7 @@ require('dotenv').config();
 const JWT_SECRET = process.env.JWT_SECRET;
 
 const loginUser = async (req, res) => {
-  const email = req.body.email.toLowerCase();
-  const { password } = req.body;
+  const { email, password } = req.body;
 
   // Look up the user in the database by email
   const user = await User.findOne({ email });
@@ -26,7 +25,8 @@ const loginUser = async (req, res) => {
     expiresIn: '1h',
   });
 
-  next()
+  // Send the generated token back to the client
+  res.json({ token });
 };
 
 module.exports = loginUser;

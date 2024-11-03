@@ -1,5 +1,5 @@
 const bcrypt = require('bcrypt');
-const User = require('../../models/users-model/user.model');
+const User = require('../models/User');
 
 const RegisterController = async (req, res, next) => {
 
@@ -23,7 +23,7 @@ const RegisterController = async (req, res, next) => {
       return;
     };
 
-    const salt = await bcrypt.genSalt(10);
+    const salt = await bcrypt.genSalt(12);
     const hashPassword = await bcrypt.hash(password, salt)
 
     await User.create({
