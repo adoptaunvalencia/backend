@@ -17,7 +17,8 @@
 │ ├── controllers
 │ ├── middlewares
 │ ├── models
-│ └── routes
+│ ├── routes
+│ └── utils
 ├── index.js
 ├── .gitignore
 ├── README.md
@@ -115,9 +116,40 @@ Example Response
   "updatedAt": "2024-11-03T12:34:56.789Z"
 }
 
+```
+
+#### `forgotPassword` (Forgot Password Middleware)
+
+Handles password reset requests by performing the following steps:
+
+1. Extracts the email from the request body.
+2. Searches for the user by email in the database.
+3. If the user exists, generates a password reset token and stores it in the user document.
+4. Sends a password reset email with the generated token.
+
+
+Example Request
+
+```http
+POST /users/forgot-password
+Content-Type: application/json
+
+{
+  "email": "john.doe@example.com"
+}
+
+```
+Example Response
+
+```json
+{
+  "message": "Token sent to your email."
+}
 
 ```
 
 ## ENV
 - CONNECT_DDBB
 - JWT_SECRET
+- EMAIL_USER
+- EMAIL_PASS
