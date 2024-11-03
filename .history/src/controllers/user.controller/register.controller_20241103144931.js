@@ -9,7 +9,7 @@ const RegisterController = async (req, res, next) => {
     const user = await User.findById({ _id: createUser._id });
     return res
       .status(201)
-      .json({ message: 'User successfully created.', user });
+      .json({ message: 'Usuario registrado correctamente', user });
   } catch (error) {
     next(error);
   }

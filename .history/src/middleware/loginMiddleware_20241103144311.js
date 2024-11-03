@@ -1,6 +1,9 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const User = require('../models/users-model/user.model.js');
+require('dotenv').config();
+
+const JWT_SECRET = process.env.JWT_SECRET;
 
 const loginUser = async (req, res, next) => {
   const email = req.body.email.toLowerCase();
@@ -13,10 +16,7 @@ const loginUser = async (req, res, next) => {
       return;
     } else if (!user) {
       return res.status(400).json({ message: 'User not found.' });
-    } else {
-      req.user = user
-      next();
-    }
+    } else next();
   } catch (error) {
     next(error);
   }

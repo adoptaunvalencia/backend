@@ -8,8 +8,8 @@ const RegisterController = async (req, res, next) => {
     await createUser.save();
     const user = await User.findById({ _id: createUser._id });
     return res
-      .status(201)
-      .json({ message: 'User successfully created.', user });
+      .status(200)
+      .json({ message: 'Usuario registrado correctamente', user });
   } catch (error) {
     next(error);
   }

@@ -13,10 +13,7 @@ const loginUser = async (req, res, next) => {
       return;
     } else if (!user) {
       return res.status(400).json({ message: 'User not found.' });
-    } else {
-      req.user = user
-      next();
-    }
+    } else next();
   } catch (error) {
     next(error);
   }
