@@ -148,6 +148,40 @@ Example Response
 
 ```
 
+#### `authenticateUser` (Authentication Middleware)
+
+This middleware is responsible for authenticating users using a JWT token. It performs the following steps:
+
+1. Extracts the authorization token from the request header.
+2. If no token is provided, it returns a 401 error with a message indicating that an authorization token is required.
+3. Attempts to verify the token using the `verifyToken` function. If the token is invalid or expired, it returns a 401 error.
+4. Searches for the user in the database using the decoded ID from the token.
+5. If the user is not found, it returns a 401 error.
+6. If authentication is successful, it adds the user object to the req object so that it is available in subsequent middleware functions.
+
+
+Example Usage
+
+```http
+GET /protected-route
+Authorization: Bearer your_jwt_token
+
+```
+Example Response
+
+```json
+{
+  "message": "Access granted.",
+  "user": {
+    "name": "John",
+    "lastname": "Doe",
+    "email": "john.doe@example.com",
+    "age": 30
+  }
+}
+
+```
+
 ## ENV
 - CONNECT_DDBB
 - JWT_SECRET
