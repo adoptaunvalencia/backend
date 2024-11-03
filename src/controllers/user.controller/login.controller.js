@@ -4,23 +4,24 @@ const User = require('../models/User');
 
 const LoginController = async (req, res, next) => {
 
-  const { email, password } = req.body;
+  const email = req.body.email.toLowerCase();
+  const { password } = req.body;
 
   if (!email || !password) {
-    res.status(400).json({ message: "Todos los campos son obligatorios" });
+    res.status(400).json({ message: "All fields are required" });
     return;
   }
 
   try {
     const foundUser = await User.findOne({ email });
     if (!foundUser) {
-      res.status(400).json({ message: "No se ha encontrado usuario con este email" });
+      res.status(400).json({ message: "User not found with that email" });
       return;
     }
 
     const isPasswordCorrect = await bcrypt.compare(password, foundUser.password);
     if (!isPasswordCorrect) {;
-      res.status(400).json({ message: "Contraseña incorrecta" });
+      res.status(400).json({ message: "Wrong password" });
       return;
     };
 
@@ -29,7 +30,7 @@ const LoginController = async (req, res, next) => {
       roles: foundUser.roles
     };
 
-    const authToken = jwt.sign(payload, process.env.TOKEN_SECRET, {
+    const authToken = jwt.sign(payload, process.env.JWT_SECRET, {
       algorithm: "HS256",
       expiresIn: "7d"
     });

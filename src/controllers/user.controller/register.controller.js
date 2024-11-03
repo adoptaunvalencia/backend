@@ -3,22 +3,23 @@ const User = require('../models/User');
 
 const RegisterController = async (req, res, next) => {
 
-  const { name, lastname, email, password, age } = req.body;
+  const email = req.body.email.toLowerCase();
+  const { name, lastname, password, age } = req.body;
 
   if (!name || !lastname || !email || !password || !age) {
-    return res.status(400).json({ message: "Todos los campos son obligatorios" });
+    return res.status(400).json({ message: "All fields are required" });
   };
 
   const regexPassword = /^.{8,}$/gm;
   if (regexPassword.test(password) === false) {
-    res.status(400).json({ message: "La contraseña debe tener al menos 8 caracteres" })
+    res.status(400).json({ message: "The password must be at least 8 characters long" })
     return
   }
   
   try {
     const existingUser = await User.findOne({ email });
     if (existingUser) {
-      res.status(409).json({ message: "Este correo ya está registrado" });
+      res.status(409).json({ message: "This email is already registered" });
       return;
     };
 
@@ -33,7 +34,7 @@ const RegisterController = async (req, res, next) => {
       age
     });
 
-    res.status(201).json({ message: "Usuario registrado correctamente" });
+    res.status(201).json({ message: "User registered successfully" });
 
   } catch (error) {
     next(error);
