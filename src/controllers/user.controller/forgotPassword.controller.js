@@ -8,7 +8,7 @@ const comproveToken = async (req, res, next) => {
   try {
     const existToken = await User.findOne({ token });
     if (!existToken) {
-      return res.status(400).json({ message: 'Code not exist.' });
+      return res.status(400).json({ status: false });
     } else {
       return res.status(200).json({ status: true });
     }
