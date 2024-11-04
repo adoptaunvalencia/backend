@@ -1,12 +1,7 @@
 const bcrypt = require('bcrypt');
 const User = require('../../models/users-model/user.model');
 const emailWelcome = require('./mails/emailWelcome');
-
-const formatForURL = (string) => {
-  console.log(string);
-
-  return string.replace(/ /g, '+');
-};
+const formatForURL = require('../../utils/formatForURL');
 
 const GEO_API_KEY = process.env.GEO_API_KEY;
 const RegisterController = async (req, res, next) => {
@@ -23,8 +18,8 @@ const RegisterController = async (req, res, next) => {
     const data = await response.json();
     // END FETCH GEOCODE
     if (!data || data.length === 0) {
-      createUser.lat = null;
-      createUser.lon = null;
+      createUser.lat = '0';
+      createUser.lon = '0';
     } else {
       createUser.lat = data[0]?.lat;
       createUser.lon = data[0]?.lon;
