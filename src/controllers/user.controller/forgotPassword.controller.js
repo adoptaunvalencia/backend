@@ -1,6 +1,7 @@
 const User = require('../../models/users-model/user.model.js');
 const generateToken = require('../../utils/tokenGenerator');
 const nodemailer = require('nodemailer');
+const emailForgotPassword = require('./mails/emailForgotPassword.js');
 require('dotenv').config();
 
 const comproveToken = async (req, res, next) => {
@@ -31,6 +32,7 @@ const forgotPassword = async (req, res, next) => {
     await user.save();
 
     //SEN EMAIL
+    await emailForgotPassword(user)
 
     res.status(201).json({ message: 'Code sent to your email.' });
   } catch (error) {

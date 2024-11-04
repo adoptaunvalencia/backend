@@ -1,7 +1,7 @@
-const { sendMail } = require('../../../config/nodemailer')
+const { sendMail } = require('../../../config/nodemailer');
 
 const emailForgotPassword = async (user) => {
-  const resetLink = "";
+  const resetLink = '';
 
   const htmlContent = `
     <!DOCTYPE html>
@@ -46,8 +46,8 @@ const emailForgotPassword = async (user) => {
         <h1>Restablecimiento de contraseña</h1>
         <p>Hola ${user.name},</p>
         <p>Recibimos una solicitud para restablecer tu contraseña.</p>
-        <p>Por favor, haz clic en el enlace a continuación para crear una nueva contraseña:</p>
-        <a href="${resetLink}" target="_blank">Restablecer contraseña</a>
+        <p>Tu codigo de un solo use es:</p>
+        <p><strong>${user.token}</strong></p>
         <p>Si no solicitaste este cambio, puedes ignorar este correo.</p>
         <p class="footer">Saludos,<br/>El equipo de Adopta Un Valenciano<</p>
       </div>

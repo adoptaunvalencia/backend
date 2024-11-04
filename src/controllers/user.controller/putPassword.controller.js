@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt');
 const User = require('../../models/users-model/user.model');
+const emailNewPassword = require('./mails/emailNewPassword');
 
 const putPassword = async (req, res, next) => {
   try {
@@ -14,6 +15,7 @@ const putPassword = async (req, res, next) => {
     user.password = password;
     user.token = ''; // Delete the token from the user document
     await user.save();
+    await emailNewPassword(user)
     res.json({ message: 'Password updated successfully.', user });
   } catch (error) {
     next(error);
