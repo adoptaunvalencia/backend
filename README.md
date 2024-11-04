@@ -198,7 +198,7 @@ Example Response
 
 | HTTP Method | URL                                      | Headers          | Request Body                             | Description                                                         |
 |-------------|------------------------------------------|-------------------|-----------------------------------------|---------------------------------------------------------------------|
-| GET         | `/secure/api/v1/user/`                  | Bearer `{token}`  |                                         | Get user profile information. Return user.                          |
+| GET         | `/secure/api/v1/user/`                  | Bearer `{token}`  |                                         | Get user profile information | Return user.                          |
 | POST        | `/secure/api/v1/user/register-user`     |                   | `{name, lastname, age, email, password}` | Registers a new user in the database. Return user.                 |
 | POST        | `/secure/api/v1/user/login-user`        |                   | `{email, password}`                     | Logs in a user, creating a session. Return user, token.            |
 | POST        | `/secure/api/v1/user/forgot-password`   |                   | `{email}`                               | Sends a reset password link to the user. Return message. Code send mail. |
