@@ -29,6 +29,7 @@ const assistanceOfferSchema = new mongoose.Schema(
     },
     img: {
       type: String,
+      default:'https://www.gisinfo.net/images/news_main/first_news_images/1940_image_400.jpg'
     },
   },
   {
