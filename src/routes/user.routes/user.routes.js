@@ -5,13 +5,26 @@ const registerUser = require('../../middleware/registerMiddleware');
 const loginUser = require('../../middleware/loginMiddleware');
 const authenticateUser = require('../../middleware/authenticateUserMiddleware');
 const getProfile = require('../../controllers/user.controller/getProfile.controller');
+const {
+  forgotPassword,
+  comproveToken,
+} = require('../../controllers/user.controller/forgotPassword.controller');
+const putPassword = require('../../controllers/user.controller/putPassword.controller');
 
 //ROUTE | MIDDLEWARE | CONTROLLER
+//GET PROFILE
+ROUTER.get('/', authenticateUser, getProfile);
 //ROUTE REGISTER
 ROUTER.post('/register-user', registerUser, RegisterController);
 //LOGIN
 ROUTER.post('/login-user', loginUser, LoginController);
-//GET PROFILE
-ROUTER.get('/', authenticateUser, getProfile);
+// FORGOT PASSWORD
+ROUTER.post('/forgot-password', forgotPassword);
+
+// COMPROVE TOKEN
+ROUTER.post('/comprove-token', comproveToken);
+
+// CREATE NEW PASSWORD
+ROUTER.put('/create-password', putPassword);
 
 module.exports = ROUTER;
