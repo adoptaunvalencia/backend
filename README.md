@@ -226,6 +226,7 @@ Authorization: Bearer your_jwt_token
 - OAUTH_CLIENTID
 - OAUTH_CLIENT_SECRET
 - OAUTH_REFRESH_TOKEN
+- GEO_API_KEY
 
 # API Documentation
 
