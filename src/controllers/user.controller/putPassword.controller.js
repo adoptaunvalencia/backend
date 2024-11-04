@@ -1,8 +1,9 @@
 const bcrypt = require('bcrypt');
+const User = require('../../models/users-model/user.model');
 
 const putPassword = async (req, res, next) => {
   try {
-    const { token, newPassword } = req.body; // Extract token and new password from request body
+    const { token, password } = req.body; // Extract token and new password from request body
     const user = await User.findOne({ token });
 
     if (!user) {
@@ -10,11 +11,10 @@ const putPassword = async (req, res, next) => {
     }
 
     // Encrypt the new password and save it to the user document
-    user.password = await bcrypt.hash(newPassword, 10);
-    user.token = null; // Delete the token from the user document
+    user.password = password;
+    user.token = ''; // Delete the token from the user document
     await user.save();
-
-    res.json({ message: 'Password updated successfully.' });
+    res.json({ message: 'Password updated successfully.', user });
   } catch (error) {
     next(error);
   }

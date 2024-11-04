@@ -3,29 +3,18 @@ const generateToken = require('../../utils/tokenGenerator');
 const nodemailer = require('nodemailer');
 require('dotenv').config();
 
-// Function to send a password reset email
-const sendResetEmail = (email, token, next) => {
-  const transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-      user: process.env.EMAIL_USER, 
-      pass: process.env.EMAIL_PASS,
-    },
-  });
-
-  const mailOptions = {
-    from: process.env.EMAIL_USER, 
-    to: email,                     
-    subject: 'Password Reset Token',
-    text: `Your password reset token is: ${token}`,
-  };
-
-  // Send the email
-  transporter.sendMail(mailOptions, (error, info) => {
-    if (error) {
-      return next(error);
+const comproveToken = async (req, res, next) => {
+  const { token } = req.params;
+  try {
+    const existToken = await User.findOne({ token });
+    if (!existToken) {
+      return res.status(400).json({ message: 'Code not exist.' });
+    } else {
+      return res.status(200).json({ status: true });
     }
-  });
+  } catch (error) {
+    next(error);
+  }
 };
 
 // Controller function for handling password reset requests
@@ -37,16 +26,16 @@ const forgotPassword = async (req, res, next) => {
     if (!user) {
       return res.status(404).json({ message: 'User not found.' });
     }
-
     const token = generateToken(); // Generate password reset token
     user.token = token; // Store token in user document
     await user.save();
 
-    sendResetEmail(email, token, next); // Send the reset email
-    res.json({ message: 'Token sent to your email.' });
+    //SEN EMAIL
+
+    res.status(201).json({ message: 'Code sent to your email.' });
   } catch (error) {
-    next(error); 
+    next(error);
   }
 };
 
-module.exports = forgotPassword;
+module.exports = { forgotPassword, comproveToken };

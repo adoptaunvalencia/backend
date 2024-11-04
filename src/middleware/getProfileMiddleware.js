@@ -1,5 +1,5 @@
 const User = require('../models/users-model/user.model.js');
-
+//! MIDDLEWARE NO SIRVE, NO ME DEVUELVE EL NEXT()
 const getProfile = async (req, res) => {
   const userId = req.user.id;
 
