@@ -82,6 +82,13 @@ Example Response
 }
 ```
 
+### Geolocation Warning
+
+<span style="color:#FF69B4;">**Important:** If the `lat` and `lon` fields in the response are both set to `"0"`, this indicates that the geolocation data returned by the API is not valid. This typically happens when the API fails to find a valid location for the provided address.</span>
+
+Ensure that the address you provide is complete and correctly formatted to improve the chances of successful geolocation lookup.
+
+
 #### `loginUser` (Login Middleware)
 
 Handles user login by performing the following steps:
