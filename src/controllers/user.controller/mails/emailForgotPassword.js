@@ -31,6 +31,14 @@ const emailForgotPassword = async (user) => {
           color: #d32f2f;
           font-weight: bold;
           text-align: center;
+          margin-bottom: 20px;
+        }
+
+        .change-password-code {
+          font-size: 24px;
+          text-align: center;
+          margin: 20px 0;
+          font-weight: bold;
         }
 
         .footer {
@@ -46,10 +54,10 @@ const emailForgotPassword = async (user) => {
         <h1>Restablecimiento de contraseña</h1>
         <p>Hola ${user.name},</p>
         <p>Recibimos una solicitud para restablecer tu contraseña.</p>
-        <p>Tu codigo de un solo use es:</p>
-        <p><strong>${user.token}</strong></p>
+        <p>Tu codigo de un solo uso es:</p>
+        <p class="change-password-code"><strong>${user.token}</strong></p>
         <p>Si no solicitaste este cambio, puedes ignorar este correo.</p>
-        <p class="footer">Saludos,<br/>El equipo de Adopta Un Valenciano<</p>
+        <p class="footer">Saludos,<br/>El equipo de Adopta Un Valenciano</p>
       </div>
     </body>
     </html>
