@@ -7,11 +7,6 @@ const informationSchema = new mongoose.Schema(
       ref: 'User',
       required: true,
     },
-    documentation: {
-      type: String,
-      required: true,
-      unique: false,
-    },
     city: { type: String, trim: true, required: true },
     address: { type: String, trim: true, required: true },
   },

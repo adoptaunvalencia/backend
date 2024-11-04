@@ -13,6 +13,10 @@ const userSchema = new mongoose.Schema(
       trim: true,
       required: true,
     },
+    avatar: {
+      type: String,
+      default: 'https://cdn-icons-png.flaticon.com/512/3541/3541871.png'
+    },
     email: {
       type: String,
       trim: true,
@@ -32,11 +36,28 @@ const userSchema = new mongoose.Schema(
       type: String,
       trim: true,
     },
-    // MODEL INFORMATION USER
-    idInformation: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'InformationUser',
-      required: false,
+    city: {
+      type: String,
+      trim: true,
+      required: true,
+    },
+    address: {
+      type: String,
+      trim: true,
+      required: true,
+    },
+    postalcode: {
+      type: String,
+      trim: true,
+      required: true,
+    },
+    lat: {
+      type: String,
+      required:true,
+    },
+    lon: {
+      type: String,
+      required:true,
     },
     roles: {
       type: [String],
