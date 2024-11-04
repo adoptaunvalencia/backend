@@ -23,8 +23,8 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    age: {
-      type: Number,
+    birthDate: {
+      type: Date,
       required: true,
     },
     //FORGOT PASSWORD CREATE A TOKEN

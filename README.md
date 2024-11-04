@@ -24,7 +24,6 @@
 ├── README.md
 ```
 
-
 ## Middleware Functions
 
 #### `registerUser` (Register Middleware)
@@ -35,7 +34,6 @@ Handles user registration by performing the following steps:
 2. If the email is unique, creates a new user instance with the provided data (`name`, `lastname`, `email`, `password`, `age`).
 3. Saves the user in the database and returns a success message.
 
-
 Example Request
 
 ```http
@@ -43,20 +41,32 @@ POST /users/register
 Content-Type: application/json
 
 {
-  "name": "John",
-  "lastname": "Doe",
-  "email": "john.doe@example.com",
-  "password": "your_password",
-  "age": 30
+    "name": "John",
+    "lastname": "Doe",
+    "email": "test@test.com",
+    "birthDate": "1987-02-19",
+		"password":"11111111"
 }
 ```
+
 Example Response
 
 ```json
 {
-  "message": "User registered successfully."
+  "message": "User successfully created.",
+  "user": {
+    "_id": "67293e6ce7952c749d36b7a2",
+    "name": "John",
+    "lastname": "Doe",
+    "email": "test@test.com",
+    "password": "$2b$10$2.olUeqMZ8GymK4L1SJW5e8tEgvshPtWiGySdL.PFM0unDaoLnKAC",
+    "birthDate": "1987-02-19T00:00:00.000Z",
+    "roles": ["user"],
+    "createdAt": "2024-11-04T21:36:44.867Z",
+    "updatedAt": "2024-11-04T21:36:44.867Z",
+    "__v": 0
+  }
 }
-
 ```
 
 #### `loginUser` (Login Middleware)
@@ -66,7 +76,6 @@ Handles user login by performing the following steps:
 1. Searches the user by email in the database.
 2. If found, compares the provided password with the hashed password stored in the database.
 3. If the password matches, generates a JWT and returns it to the client.
-
 
 Example Request
 
@@ -79,13 +88,29 @@ Content-Type: application/json
   "password": "your_password"
 }
 ```
+
 Example Response
 
 ```json
 {
-  "token": "your_generated_jwt_token"
+  {
+	"user": {
+		"_id": "67293e6ce7952c749d36b7a2",
+		"name": "John",
+		"lastname": "Doe",
+		"email": "test@test.com",
+		"password": "$2b$10$2.olUeqMZ8GymK4L1SJW5e8tEgvshPtWiGySdL.PFM0unDaoLnKAC",
+		"birthDate": "1987-02-19T00:00:00.000Z",
+		"roles": [
+			"user"
+		],
+		"createdAt": "2024-11-04T21:36:44.867Z",
+		"updatedAt": "2024-11-04T21:36:44.867Z",
+		"__v": 0
+	},
+	"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3MjkzZTZjZTc5NTJjNzQ5ZDM2YjdhMiIsImlhdCI6MTczMDc1NjMyMCwiZXhwIjoxNzMzMzQ4MzIwfQ.tVmzcIsIpZwe9_hrru-Fm1kqVU7OR_Te2U9M8liw740"
 }
-
+}
 ```
 
 #### `getProfile` (Get Profile Middleware)
@@ -96,26 +121,32 @@ Retrieves the profile data of the authenticated user by performing the following
 2. Retrieves the user data from the database, excluding the password.
 3. Returns the user profile information to the client.
 
-
 Example Request
 
 ```http
 GET /api/users/profile
 
 ```
+
 Example Response
 
 ```json
 {
-  "name": "John",
-  "lastname": "Doe",
-  "email": "john.doe@example.com",
-  "age": 30,
-  "roles": ["user"],
-  "createdAt": "2024-11-03T12:34:56.789Z",
-  "updatedAt": "2024-11-03T12:34:56.789Z"
+  {
+	"_id": "67293e6ce7952c749d36b7a2",
+	"name": "John",
+	"lastname": "Doe",
+	"email": "test@test.com",
+	"password": "$2b$10$2.olUeqMZ8GymK4L1SJW5e8tEgvshPtWiGySdL.PFM0unDaoLnKAC",
+	"birthDate": "1987-02-19T00:00:00.000Z",
+	"roles": [
+		"user"
+	],
+	"createdAt": "2024-11-04T21:36:44.867Z",
+	"updatedAt": "2024-11-04T21:36:44.867Z",
+	"__v": 0
 }
-
+}
 ```
 
 #### `forgotPassword` (Forgot Password Middleware)
@@ -126,7 +157,6 @@ Handles password reset requests by performing the following steps:
 2. Searches for the user by email in the database.
 3. If the user exists, generates a password reset token and stores it in the user document.
 4. Sends a password reset email with the generated token.
-
 
 Example Request
 
@@ -139,13 +169,13 @@ Content-Type: application/json
 }
 
 ```
+
 Example Response
 
 ```json
 {
   "message": "Token sent to your email."
 }
-
 ```
 
 #### `authenticateUser` (Authentication Middleware)
@@ -159,7 +189,6 @@ This middleware is responsible for authenticating users using a JWT token. It pe
 5. If the user is not found, it returns a 401 error.
 6. If authentication is successful, it adds the user object to the req object so that it is available in subsequent middleware functions.
 
-
 Example Usage
 
 ```http
@@ -167,29 +196,15 @@ GET /protected-route
 Authorization: Bearer your_jwt_token
 
 ```
-Example Response
-
-```json
-{
-  "message": "Access granted.",
-  "user": {
-    "name": "John",
-    "lastname": "Doe",
-    "email": "john.doe@example.com",
-    "age": 30
-  }
-}
-
-```
 
 ## ENV
+
 - CONNECT_DDBB
 - JWT_SECRET
 - EMAIL_HOST
 - OAUTH_CLIENTID
 - OAUTH_CLIENT_SECRET
 - OAUTH_REFRESH_TOKEN
-
 
 # API Documentation
 
@@ -198,11 +213,11 @@ Example Response
 **Server URL:** `https://backend-eta-umber.vercel.app`  
 **User Endpoint:** `https://backend-eta-umber.vercel.app/secure/api/v1/user`
 
-| HTTP Method | URL                                      | Headers          | Request Body                             | Description                                                         |
-|-------------|------------------------------------------|-------------------|-----------------------------------------|---------------------------------------------------------------------|
-| GET         | `/secure/api/v1/user/`                  | Bearer `{token}`  |                                         | Get user profile information | Return {user}                          |
-| POST        | `/secure/api/v1/user/register-user`     |                   | `{name, lastname, age, email, password}` | Registers a new user in the database. Return {user}                 |
-| POST        | `/secure/api/v1/user/login-user`        |                   | `{email, password}`                     | Logs in a user, creating a session. Return {user, token}            |
-| POST        | `/secure/api/v1/user/forgot-password`   |                   | `{email}`                               | Sends a reset password link to the user. Return message: "Code send" mail. |
-| POST        | `/secure/api/v1/user/comprove-token`    |                   | `{token}`                               | Verifies the reset password token. Return Boolean.                  |
-| PUT         | `/secure/api/v1/user/create-password`   |                   | `{token, password}`                     | Updates the user’s password. Return {user}.                          |
+| HTTP Method | URL                                   | Headers          | Request Body                                   | Description                                                                |
+| ----------- | ------------------------------------- | ---------------- | ---------------------------------------------- | -------------------------------------------------------------------------- | ------------- |
+| GET         | `/secure/api/v1/user/`                | Bearer `{token}` |                                                | Get user profile information                                               | Return {user} |
+| POST        | `/secure/api/v1/user/register-user`   |                  | `{name, lastname, birthDate, email, password}` | Registers a new user in the database. Return {user}                        |
+| POST        | `/secure/api/v1/user/login-user`      |                  | `{email, password}`                            | Logs in a user, creating a session. Return {user, token}                   |
+| POST        | `/secure/api/v1/user/forgot-password` |                  | `{email}`                                      | Sends a reset password link to the user. Return message: "Code send" mail. |
+| POST        | `/secure/api/v1/user/comprove-token`  |                  | `{token}`                                      | Verifies the reset password token. Return Boolean.                         |
+| PUT         | `/secure/api/v1/user/create-password` |                  | `{token, password}`                            | Updates the user’s password. Return {user}.                                |
