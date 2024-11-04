@@ -19,17 +19,17 @@ APP.use('/secure/api/v1', mainRoutes);
 
 APP.get('*', (req, res, next) => {
   const error = new Error(
-    'La url a la que intentas acceder no existe, por favor contacta con soporte',
+    'The URL you are trying to access does not exist. Please contact support.',
   );
   error.status = 404;
   next(error);
 });
 
 APP.use((error, req, res, next) => {
-  console.error('Error detectado: ', error.message);
+  console.error('Error: ', error.message);
   res.status(error.status || 500).json({
     message:
-      error.message || 'Hubo un problema en el servidor, intenta más tarde.',
+      error.message || 'There was a problem with the server. Please try again later.',
   });
 });
 //END ROUTES
