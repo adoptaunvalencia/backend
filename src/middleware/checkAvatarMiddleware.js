@@ -3,8 +3,6 @@ const cloudinary = require('cloudinary').v2;
 const { CloudinaryStorage } = require('multer-storage-cloudinary');
 
 const createStorage = (folderName) => {
-  console.log('Hola');
-  
   return new CloudinaryStorage({
     cloudinary,
     params: async () => {
@@ -17,8 +15,6 @@ const createStorage = (folderName) => {
 };
 
 const uploadFolder = (folderName) => {
-  console.log(folderName);
-  
   const storage = createStorage(folderName);
   return multer({ storage });
 };

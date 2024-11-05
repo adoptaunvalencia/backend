@@ -30,7 +30,6 @@ const updateUser = async (req, res, next) => {
 
 const updateAvatar = async (req, res, next) => {
   const { user } = req;
-  
   try {
     if (req.file) {
       deleteImg(user.avatar);
