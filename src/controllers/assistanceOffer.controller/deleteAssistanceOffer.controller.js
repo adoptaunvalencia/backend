@@ -9,7 +9,7 @@ const deleteAssistanceOfferController = async (req, res, next) => {
         .json({ message: 'Assistance Offer not found' });
     }
     return res
-      .status(200)
+      .status(204)
       .json({ message: 'Assistance Offer successfully deleted' });
   } catch (error) {
     next(error);

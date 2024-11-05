@@ -2,6 +2,15 @@ const AssistanceOffer = require('../../models/assistance-offer-model/assistanceO
 
 const createAssistanceOfferController = async (req, res, next) => {
   try {
+    const { availableUntil } = req.body;
+
+    const availableUntilDate = new Date(availableUntil);
+    if (availableUntilDate <= Date.now()) {
+      return res
+        .status(400)
+        .json({ message: 'The available until date must be in the future' });
+    }
+
     const createAssistanceOffer = new AssistanceOffer(req.body);
     await createAssistanceOffer.save();
     const assistanceOffer = await AssistanceOffer.findById({ _id: createAssistanceOffer._id });

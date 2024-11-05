@@ -5,14 +5,15 @@ const getAssistanceOfferByIdController = require('../../controllers/assistanceOf
 const updateAssistanceOfferController = require('../../controllers/assistanceOffer.controller/updateAssistanceOffer.controller');
 const deleteAssistanceOfferController = require('../../controllers/assistanceOffer.controller/deleteAssistanceOffer.controller');
 const authenticateUser = require('../../middleware/authenticateUserMiddleware');
+const filterUserInfo = require('../../middleware/filterUserInfoMiddleware');
 
 //ROUTE | MIDDLEWARE | CONTROLLER
 //POST ASSISTANCE OFFER
 ROUTER.post('/', authenticateUser, createAssistanceOfferController);
 //GET ALL ASSISTANCE OFFERS
-ROUTER.get('/', authenticateUser, getAllAssistanceOffersController);
+ROUTER.get('/', filterUserInfo, getAllAssistanceOffersController);
 //GET ASSISTANCE OFFER BY ID
-ROUTER.get('/:id', authenticateUser, getAssistanceOfferByIdController);
+ROUTER.get('/:id', filterUserInfo, getAssistanceOfferByIdController);
 //UPDATE ASSISTANCE OFFER
 ROUTER.put('/:id', authenticateUser, updateAssistanceOfferController);
 //DELETE ASSISTANCE OFFER
