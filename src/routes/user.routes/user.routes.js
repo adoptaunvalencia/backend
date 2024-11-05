@@ -10,6 +10,10 @@ const {
   comproveToken,
 } = require('../../controllers/user.controller/forgotPassword.controller');
 const putPassword = require('../../controllers/user.controller/putPassword.controller');
+const {
+  updateUser,
+  updateAddress,
+} = require('../../controllers/user.controller/updateUser.controller');
 
 //ROUTE | MIDDLEWARE | CONTROLLER
 //GET PROFILE
@@ -20,11 +24,13 @@ ROUTER.post('/register-user', registerUser, RegisterController);
 ROUTER.post('/login-user', loginUser, LoginController);
 // FORGOT PASSWORD
 ROUTER.post('/forgot-password', forgotPassword);
-
 // COMPROVE TOKEN
 ROUTER.post('/comprove-token', comproveToken);
-
 // CREATE NEW PASSWORD
 ROUTER.put('/create-password', putPassword);
+// UPDATE USER
+ROUTER.put('/update-user', authenticateUser, updateUser);
+// UPDATE ADDRESS
+ROUTER.put('/update-address', authenticateUser, updateAddress);
 
 module.exports = ROUTER;

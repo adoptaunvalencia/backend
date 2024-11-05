@@ -221,6 +221,9 @@ Authorization: Bearer your_jwt_token
 
 ```
 
+#### `Update user information` 
+
+
 ## ENV
 
 - CONNECT_DDBB
@@ -231,6 +234,8 @@ Authorization: Bearer your_jwt_token
 - OAUTH_REFRESH_TOKEN
 - GEO_API_KEY
 
+
+
 # API Documentation
 
 ## User API Endpoints
@@ -238,11 +243,13 @@ Authorization: Bearer your_jwt_token
 **Server URL:** `https://backend-eta-umber.vercel.app`  
 **User Endpoint:** `https://backend-eta-umber.vercel.app/secure/api/v1/user`
 
-| HTTP Method | URL                                   | Headers          | Request Body                                                              | Description                                                                |
-| ----------- | ------------------------------------- | ---------------- | ------------------------------------------------------------------------- | -------------------------------------------------------------------------- | ------------- |
-| GET         | `/secure/api/v1/user/`                | Bearer `{token}` |                                                                           | Get user profile information                                               | Return {user} |
-| POST        | `/secure/api/v1/user/register-user`   |                  | `{name, lastname, birthDate, email, password, city, address, postalcode}` | Registers a new user in the database. Return {user}                        |
-| POST        | `/secure/api/v1/user/login-user`      |                  | `{email, password}`                                                       | Logs in a user, creating a session. Return {user, token}                   |
-| POST        | `/secure/api/v1/user/forgot-password` |                  | `{email}`                                                                 | Sends a reset password link to the user. Return message: "Code send" mail. |
-| POST        | `/secure/api/v1/user/comprove-token`  |                  | `{token}`                                                                 | Verifies the reset password token. Return Boolean.                         |
-| PUT         | `/secure/api/v1/user/create-password` |                  | `{token, password}`                                                       | Updates the user’s password. Return {user}.                                |
+| HTTP Method | URL                                   | Headers          | Request Body                                                              | Description                                                                | Response              |
+| ----------- | ------------------------------------- | ---------------- | ------------------------------------------------------------------------- | -------------------------------------------------------------------------- | ---------------------- |
+| GET         | `/secure/api/v1/user/`                | Bearer `{token}` |                                                                           | Gets user profile information                                              | `{ user }`            |
+| POST        | `/secure/api/v1/user/register-user`   |                  | `{ name, lastname, birthDate, email, password, city, address, postalcode }` | Registers a new user in the database.                                      | `{ user }`            |
+| POST        | `/secure/api/v1/user/login-user`      |                  | `{ email, password }`                                                     | Logs in a user, creating a session.                                        | `{ user, token }`     |
+| POST        | `/secure/api/v1/user/forgot-password` |                  | `{ email }`                                                               | Sends a reset password link to the user. Returns message: "Code sent" mail. | `{ message }`         |
+| POST        | `/secure/api/v1/user/comprove-token`  |                  | `{ token }`                                                               | Verifies the reset password token. Returns boolean.                         | `true/false`          |
+| PUT         | `/secure/api/v1/user/create-password` |                  | `{ token, password }`                                                     | Updates the user’s password. Returns `{ user }`.                            | `{ user }`            |
+| PUT         | `/secure/api/v1/user/update-user`     | Bearer `{token}` | `{ any_user_field_except_city_address_postalcode }`                       | Updates user data except for address fields.                               | `{ message, user }`   |
+| PUT         | `/secure/api/v1/user/update-address`  | Bearer `{token}` | `{ city, address, postalcode }`                                           | Updates the user's address with geolocation data.                          | `{ message, address }`|

@@ -4,7 +4,6 @@ const emailWelcome = require('./mails/emailWelcome');
 const formatForURL = require('../../utils/formatForURL');
 const fetchGeoCode = require('../../utils/fetchGeoCode');
 
-const GEO_API_KEY = process.env.GEO_API_KEY;
 const RegisterController = async (req, res, next) => {
   const { city, address, postalcode } = req.body;
   const email = req.body.email.toLowerCase();
@@ -17,8 +16,7 @@ const RegisterController = async (req, res, next) => {
     const geocodeData = await fetchGeoCode(
       newAddress,
       newCity,
-      newPC,
-      GEO_API_KEY,
+      newPC
     );
     if (!geocodeData) {
       return res
