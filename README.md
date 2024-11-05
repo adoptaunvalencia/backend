@@ -10,6 +10,9 @@
 - Dotenv
 - Nodemon
 - GoogleApis
+- Cloudinary
+- Multer
+- Multer-storage-cloudinary
 
 ```
 ├── src
@@ -234,6 +237,9 @@ Authorization: Bearer your_jwt_token
 - OAUTH_CLIENT_SECRET
 - OAUTH_REFRESH_TOKEN
 - GEO_API_KEY
+- CLOUDINARY_NAME
+- CLOUDINARY_SECRET
+- CLOUDINARY_KEY
 
 
 
@@ -253,4 +259,5 @@ Authorization: Bearer your_jwt_token
 | POST        | `/secure/api/v1/user/comprove-token`  |                  | `{ token }`                                                               | Verifies the reset password token. Returns boolean.                         | `true/false`          |
 | PUT         | `/secure/api/v1/user/create-password` |                  | `{ token, password }`                                                     | Updates the user’s password. Returns `{ user }`.                            | `{ user }`            |
 | PUT         | `/secure/api/v1/user/update-user`     | Bearer `{token}` | `{ any_user_field_except_city_address_postalcode }`                       | Updates user data except for address fields.                               | `{ message, user }`   |
+| PUT         | `/secure/api/v1/user/update-avatar`   | Bearer `{token}` | `multipart/form-data` with field `avatar` (image file) | Updates the user's avatar image.                            | `{ message, user }`     |
 | PUT         | `/secure/api/v1/user/update-address`  | Bearer `{token}` | `{ city, address, postalcode }`                                           | Updates the user's address with geolocation data.                          | `{ message, address }`|
