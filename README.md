@@ -31,63 +31,63 @@
 Handles user registration by performing the following steps:
 
 1. Checks if the provided email is already registered.
-2. If the email is unique, creates a new user instance with the provided data (`name`, `lastname`, `email`, `password`, `age`).
+2. If the email is unique, creates a new user instance with the provided data (`name`, `lastname`, `email`, `password`, `birthDate`, `city`, `address`, `postalcode`).
 3. Saves the user in the database and returns a success message.
 
 Example Request
 
-```http
+```
+http
 POST /users/register
 Content-Type: application/json
 
-{
-    {
-    "email": "test123@test123.com",
-		"password":"11111111",
-		"name":"Daniele",
-		"lastname":"Mazzola",
-		"birthDate":"1987-02-19",
-		"city":"Alicante",
-		"address":"Pasaje metal 7, 5-B",
-		"postalcode":"03006"
-}
-}
+	{
+			"email": "test123@test123.com",
+			"password":"11111111",
+			"name":"Daniele",
+			"lastname":"Mazzola",
+			"birthDate":"1987-02-19",
+			"city":"Alicante",
+			"address":"Pasaje metal 7, 5-B",
+			"postalcode":"03006"
+	}
 ```
 
 Example Response
 
 ```json
 {
-	"message": "User successfully created.",
-	"user": {
-		"_id": "67294d3dbce4f02b91ea2e55",
-		"name": "Daniele",
-		"lastname": "Mazzola",
-		"avatar": "https://cdn-icons-png.flaticon.com/512/3541/3541871.png",
-		"email": "test123@test123.com",
-		"password": "$2b$10$0CSdyHrJpSIc.li9.6iw6umNPAxnGKxl1EsmT8NlqyKRXJoLiIEjO",
-		"birthDate": "1987-02-19T00:00:00.000Z",
-		"city": "Alicante",
-		"address": "Pasaje metal 7, 5-B",
-		"postalcode": "03006",
-		"roles": [
-			"user"
-		],
-		"lat": "38.3451509",
-		"lon": "-0.504228",
-		"createdAt": "2024-11-04T22:39:57.280Z",
-		"updatedAt": "2024-11-04T22:39:57.280Z",
-		"__v": 0
-	}
+  "message": "User successfully created.",
+  "user": {
+    "_id": "67294d3dbce4f02b91ea2e55",
+    "name": "Daniele",
+    "lastname": "Mazzola",
+    "avatar": "https://cdn-icons-png.flaticon.com/512/3541/3541871.png",
+    "email": "test123@test123.com",
+    "password": "$2b$10$0CSdyHrJpSIc.li9.6iw6umNPAxnGKxl1EsmT8NlqyKRXJoLiIEjO",
+    "birthDate": "1987-02-19T00:00:00.000Z",
+    "city": "Alicante",
+    "address": "Pasaje metal 7, 5-B",
+    "postalcode": "03006",
+    "roles": ["user"],
+    "lat": "38.3451509",
+    "lon": "-0.504228",
+    "createdAt": "2024-11-04T22:39:57.280Z",
+    "updatedAt": "2024-11-04T22:39:57.280Z",
+    "__v": 0
+  }
 }
 ```
 
 ### Geolocation Warning
 
-<span style="color:#FF69B4;">**Important:** If the `lat` and `lon` fields in the response are both set to `"0"`, this indicates that the geolocation data returned by the API is not valid. This typically happens when the API fails to find a valid location for the provided address.</span>
+<span style="color:#FF69B4;">**Important:** If the `geocoding` service cannot obtain coordinates for the provided address, the registration process will be `STOPPED`, and the user will not be created. In this case, a response with the following error message will be sent:</span>
 
-Ensure that the address you provide is complete and correctly formatted to improve the chances of successful geolocation lookup.
-
+```json
+{
+  "message": "Unable to fetch geolocation data. Please check the address information and try again."
+}
+```
 
 #### `loginUser` (Login Middleware)
 
@@ -113,27 +113,25 @@ Example Response
 
 ```json
 {
-	"user": {
-		"_id": "67294d3dbce4f02b91ea2e55",
-		"name": "Daniele",
-		"lastname": "Mazzola",
-		"avatar": "https://cdn-icons-png.flaticon.com/512/3541/3541871.png",
-		"email": "test123@test123.com",
-		"password": "$2b$10$0CSdyHrJpSIc.li9.6iw6umNPAxnGKxl1EsmT8NlqyKRXJoLiIEjO",
-		"birthDate": "1987-02-19T00:00:00.000Z",
-		"city": "Alicante",
-		"address": "Pasaje metal 7, 5-B",
-		"postalcode": "03006",
-		"roles": [
-			"user"
-		],
-		"lat": "38.3451509",
-		"lon": "-0.504228",
-		"createdAt": "2024-11-04T22:39:57.280Z",
-		"updatedAt": "2024-11-04T22:39:57.280Z",
-		"__v": 0
-	},
-	"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3Mjk0ZDNkYmNlNGYwMmI5MWVhMmU1NSIsImlhdCI6MTczMDc2MDA3OCwiZXhwIjoxNzMzMzUyMDc4fQ.k5gKHenfP8BJ-hO6kx2NJPW6fu87BkAmPOBOgizmxkA"
+  "user": {
+    "_id": "67294d3dbce4f02b91ea2e55",
+    "name": "Daniele",
+    "lastname": "Mazzola",
+    "avatar": "https://cdn-icons-png.flaticon.com/512/3541/3541871.png",
+    "email": "test123@test123.com",
+    "password": "$2b$10$0CSdyHrJpSIc.li9.6iw6umNPAxnGKxl1EsmT8NlqyKRXJoLiIEjO",
+    "birthDate": "1987-02-19T00:00:00.000Z",
+    "city": "Alicante",
+    "address": "Pasaje metal 7, 5-B",
+    "postalcode": "03006",
+    "roles": ["user"],
+    "lat": "38.3451509",
+    "lon": "-0.504228",
+    "createdAt": "2024-11-04T22:39:57.280Z",
+    "updatedAt": "2024-11-04T22:39:57.280Z",
+    "__v": 0
+  },
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3Mjk0ZDNkYmNlNGYwMmI5MWVhMmU1NSIsImlhdCI6MTczMDc2MDA3OCwiZXhwIjoxNzMzMzUyMDc4fQ.k5gKHenfP8BJ-hO6kx2NJPW6fu87BkAmPOBOgizmxkA"
 }
 ```
 
@@ -156,24 +154,22 @@ Example Response
 
 ```json
 {
-	"_id": "67294d3dbce4f02b91ea2e55",
-	"name": "Daniele",
-	"lastname": "Mazzola",
-	"avatar": "https://cdn-icons-png.flaticon.com/512/3541/3541871.png",
-	"email": "test123@test123.com",
-	"password": "$2b$10$0CSdyHrJpSIc.li9.6iw6umNPAxnGKxl1EsmT8NlqyKRXJoLiIEjO",
-	"birthDate": "1987-02-19T00:00:00.000Z",
-	"city": "Alicante",
-	"address": "Pasaje metal 7, 5-B",
-	"postalcode": "03006",
-	"roles": [
-		"user"
-	],
-	"lat": "38.3451509",
-	"lon": "-0.504228",
-	"createdAt": "2024-11-04T22:39:57.280Z",
-	"updatedAt": "2024-11-04T22:39:57.280Z",
-	"__v": 0
+  "_id": "67294d3dbce4f02b91ea2e55",
+  "name": "Daniele",
+  "lastname": "Mazzola",
+  "avatar": "https://cdn-icons-png.flaticon.com/512/3541/3541871.png",
+  "email": "test123@test123.com",
+  "password": "$2b$10$0CSdyHrJpSIc.li9.6iw6umNPAxnGKxl1EsmT8NlqyKRXJoLiIEjO",
+  "birthDate": "1987-02-19T00:00:00.000Z",
+  "city": "Alicante",
+  "address": "Pasaje metal 7, 5-B",
+  "postalcode": "03006",
+  "roles": ["user"],
+  "lat": "38.3451509",
+  "lon": "-0.504228",
+  "createdAt": "2024-11-04T22:39:57.280Z",
+  "updatedAt": "2024-11-04T22:39:57.280Z",
+  "__v": 0
 }
 ```
 
@@ -242,11 +238,11 @@ Authorization: Bearer your_jwt_token
 **Server URL:** `https://backend-eta-umber.vercel.app`  
 **User Endpoint:** `https://backend-eta-umber.vercel.app/secure/api/v1/user`
 
-| HTTP Method | URL                                   | Headers          | Request Body                                   | Description                                                                |
-| ----------- | ------------------------------------- | ---------------- | ---------------------------------------------- | -------------------------------------------------------------------------- | ------------- |
-| GET         | `/secure/api/v1/user/`                | Bearer `{token}` |                                                | Get user profile information                                               | Return {user} |
+| HTTP Method | URL                                   | Headers          | Request Body                                                              | Description                                                                |
+| ----------- | ------------------------------------- | ---------------- | ------------------------------------------------------------------------- | -------------------------------------------------------------------------- | ------------- |
+| GET         | `/secure/api/v1/user/`                | Bearer `{token}` |                                                                           | Get user profile information                                               | Return {user} |
 | POST        | `/secure/api/v1/user/register-user`   |                  | `{name, lastname, birthDate, email, password, city, address, postalcode}` | Registers a new user in the database. Return {user}                        |
-| POST        | `/secure/api/v1/user/login-user`      |                  | `{email, password}`                            | Logs in a user, creating a session. Return {user, token}                   |
-| POST        | `/secure/api/v1/user/forgot-password` |                  | `{email}`                                      | Sends a reset password link to the user. Return message: "Code send" mail. |
-| POST        | `/secure/api/v1/user/comprove-token`  |                  | `{token}`                                      | Verifies the reset password token. Return Boolean.                         |
-| PUT         | `/secure/api/v1/user/create-password` |                  | `{token, password}`                            | Updates the user’s password. Return {user}.                                |
+| POST        | `/secure/api/v1/user/login-user`      |                  | `{email, password}`                                                       | Logs in a user, creating a session. Return {user, token}                   |
+| POST        | `/secure/api/v1/user/forgot-password` |                  | `{email}`                                                                 | Sends a reset password link to the user. Return message: "Code send" mail. |
+| POST        | `/secure/api/v1/user/comprove-token`  |                  | `{token}`                                                                 | Verifies the reset password token. Return Boolean.                         |
+| PUT         | `/secure/api/v1/user/create-password` |                  | `{token, password}`                                                       | Updates the user’s password. Return {user}.                                |
