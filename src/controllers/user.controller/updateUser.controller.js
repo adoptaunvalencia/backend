@@ -1,4 +1,5 @@
 const User = require('../../models/users-model/user.model');
+const { deleteImg } = require('../../utils/deleteAvatar');
 const fetchGeoCode = require('../../utils/fetchGeoCode');
 
 const updateUser = async (req, res, next) => {
@@ -22,6 +23,27 @@ const updateUser = async (req, res, next) => {
         .json({ message: 'Ups, there was a problem, please try again' });
     }
     return res.status(201).json({ message: 'User update', user: updateUser });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const updateAvatar = async (req, res, next) => {
+  const { user } = req;
+  
+  try {
+    if (req.file) {
+      deleteImg(user.avatar);
+      req.body.image = req.file.path;
+    }
+    const updateUser = await User.findByIdAndUpdate(
+      user._id,
+      { $set: { avatar: req.body.image } },
+      { new: true },
+    );
+    return res
+      .status(200)
+      .json({ message: 'Avatar actualizado.', user: updateUser });
   } catch (error) {
     next(error);
   }
@@ -62,4 +84,4 @@ const updateAddress = async (req, res, next) => {
   }
 };
 
-module.exports = { updateUser, updateAddress };
+module.exports = { updateUser, updateAvatar, updateAddress };

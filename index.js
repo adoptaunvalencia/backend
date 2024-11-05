@@ -1,6 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
+const connectCloudinary = require('./src/config/cloudinary');
 
 const APP = express();
 
@@ -12,6 +13,9 @@ APP.use(express.json());
 const connection = require('./src/config/connection');
 connection();
 // End Connection DDBB
+
+//Cloudinary
+connectCloudinary();
 
 // ROUTES
 const mainRoutes = require('./src/routes/mainRoutes');
@@ -29,7 +33,8 @@ APP.use((error, req, res, next) => {
   console.error('Error: ', error.message);
   res.status(error.status || 500).json({
     message:
-      error.message || 'There was a problem with the server. Please try again later.',
+      error.message ||
+      'There was a problem with the server. Please try again later.',
   });
 });
 //END ROUTES

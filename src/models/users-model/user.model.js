@@ -15,7 +15,11 @@ const userSchema = new mongoose.Schema(
     },
     avatar: {
       type: String,
-      default: 'https://cdn-icons-png.flaticon.com/512/3541/3541871.png'
+      default: 'https://cdn-icons-png.flaticon.com/512/3541/3541871.png',
+    },
+    phone: {
+      type: String,
+      required: true,
     },
     email: {
       type: String,
@@ -53,11 +57,11 @@ const userSchema = new mongoose.Schema(
     },
     lat: {
       type: String,
-      required:true,
+      required: true,
     },
     lon: {
       type: String,
-      required:true,
+      required: true,
     },
     roles: {
       type: [String],

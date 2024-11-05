@@ -12,8 +12,10 @@ const {
 const putPassword = require('../../controllers/user.controller/putPassword.controller');
 const {
   updateUser,
+  updateAvatar,
   updateAddress,
 } = require('../../controllers/user.controller/updateUser.controller');
+const { profileAvatar } = require('../../middleware/checkAvatarMiddleware');
 
 //ROUTE | MIDDLEWARE | CONTROLLER
 //GET PROFILE
@@ -30,6 +32,8 @@ ROUTER.post('/comprove-token', comproveToken);
 ROUTER.put('/create-password', putPassword);
 // UPDATE USER
 ROUTER.put('/update-user', authenticateUser, updateUser);
+// UPDATE AVATAR
+ROUTER.put('/update-avatar', authenticateUser, profileAvatar.single('avatar'), updateAvatar);
 // UPDATE ADDRESS
 ROUTER.put('/update-address', authenticateUser, updateAddress);
 
