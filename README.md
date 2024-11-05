@@ -261,3 +261,16 @@ Authorization: Bearer your_jwt_token
 | PUT         | `/secure/api/v1/user/update-user`     | Bearer `{token}` | `{ any_user_field_except_city_address_postalcode }`                       | Updates user data except for address fields.                               | `{ message, user }`   |
 | PUT         | `/secure/api/v1/user/update-avatar`   | Bearer `{token}` | `multipart/form-data` with field `avatar` (image file) | Updates the user's avatar image.                            | `{ message, user }`     |
 | PUT         | `/secure/api/v1/user/update-address`  | Bearer `{token}` | `{ city, address, postalcode }`                                           | Updates the user's address with geolocation data.                          | `{ message, address }`|
+
+## Assistance Offer API Endpoints
+
+**Server URL:** `https://backend-eta-umber.vercel.app`
+**Assistance Offer Endpoint:** `https://backend-eta-umber.vercel.app/secure/api/v1/assistance-offer`
+
+| HTTP Method | URL                                     | Headers              | Request Body                                                            | Description                                                          | Response                        |
+|-------------|-----------------------------------------|----------------------|-------------------------------------------------------------------------|----------------------------------------------------------------------|---------------------------------|
+| **GET**     | `/secure/api/v1/assistance-offer`       | Bearer `{token}`     |                                                                         | Retrieves all available assistance offers.                           | `{ assistanceOffers }`          |
+| **GET**     | `/secure/api/v1/assistance-offer/:id`   | Bearer `{token}`     |                                                                         | Retrieves an assistance offer by its unique ID.                      | `{ assistanceOffer }`           |
+| **POST**    | `/secure/api/v1/assistance-offer`       | Bearer `{token}`     | `{ title, description, publicationDate, status, userId, availableUntil, img }` | Creates a new assistance offer with the provided details.           | `{ message, assistanceOffer }`  |
+| **PUT**     | `/secure/api/v1/assistance-offer/:id`   | Bearer `{token}`     | `{ title, description, publicationDate, status, userId, availableUntil, img }` | Updates an existing assistance offer by ID.                          | `{ message, assistanceOffer }`  |
+| **DELETE**  | `/secure/api/v1/assistance-offer/:id`   | Bearer `{token}`     |                                                                         | Deletes an assistance offer by its unique ID.                        | `{ message }`                   |
