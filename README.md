@@ -227,6 +227,74 @@ Authorization: Bearer your_jwt_token
 
 ```
 
+#### `acceptTerms ` (Accept Terms Middleware)
+
+This middleware handles user acceptance of the latest terms and conditions by performing the following steps:
+
+1. Extracts the `userId` from the request body.
+2. Searches for the active terms in the database.
+3. If active terms are found, updates or creates a record in the `UserTerms` model, linking the user to the accepted version of the terms.
+4. Returns a success message with the updated user terms data.
+
+Example Request
+
+```http
+POST /users/accept-terms
+Content-Type: application/json
+
+{
+  "userId": "67294d3dbce4f02b91ea2e55"
+}
+```
+
+Example Response
+
+```json
+{
+  "message": "Terms accepted",
+  "userTerms": {
+    "userId": "67294d3dbce4f02b91ea2e55",
+    "acceptedVersionId": "1.0.0",
+    "acceptedAt": "2024-11-05T10:20:30.000Z"
+  }
+}
+```
+
+#### `createTerms` (Create Terms Middleware)
+
+This middleware allows the creation of a new version of terms and conditions by performing the following steps:
+
+1. Extracts `versionId` and `content` from the request body.
+2. Deactivates all existing terms by setting `isActive` to `false`.
+3. Creates and saves a new active terms document with the provided `versionId` and `content`.
+4. Returns a success message with the newly created terms.
+
+Example Request
+
+```http
+POST /terms/create
+Content-Type: application/json
+
+{
+  "versionId": "1.0.0",
+  "content": "These are the terms and conditions..."
+}
+```
+
+Example Response
+
+```json
+{
+  "message": "Terms created successfully",
+  "terms": {
+    "versionId": "1.0.0",
+    "content": "These are the terms and conditions...",
+    "isActive": true
+  }
+}
+
+```
+
 #### `Update user information`
 
 ## ENV
