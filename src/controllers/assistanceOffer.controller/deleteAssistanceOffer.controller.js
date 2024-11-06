@@ -1,6 +1,6 @@
 const AssistanceOffer = require('../../models/assistance-offer-model/assistanceOffer.model');
 
-const deleteAssistanceOfferController = async (req, res, next) => {
+const deleteAssistanceOffer = async (req, res, next) => {
   try {
     const deleteAssistanceOffer = await AssistanceOffer.findByIdAndDelete(req.params.id);
     if (!deleteAssistanceOffer) {
@@ -16,4 +16,4 @@ const deleteAssistanceOfferController = async (req, res, next) => {
   }
 }
 
-module.exports = deleteAssistanceOfferController;
+module.exports = deleteAssistanceOffer;

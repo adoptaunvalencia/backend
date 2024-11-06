@@ -1,6 +1,6 @@
 const User = require('../../models/users-model/user.model');
 
-const getAssistanceOfferByIdController = async (req, res, next) => {
+const getAssistanceOffer = async (req, res, next) => {
   const { user, assistance, isAuth } = req;
   try {
     const userInfo = await User.findById(user._id).select(
@@ -20,4 +20,4 @@ const getAssistanceOfferByIdController = async (req, res, next) => {
   }
 };
 
-module.exports = getAssistanceOfferByIdController;
+module.exports = getAssistanceOffer;

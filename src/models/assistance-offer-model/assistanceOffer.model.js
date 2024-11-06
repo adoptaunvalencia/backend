@@ -42,13 +42,16 @@ const assistanceOfferSchema = new mongoose.Schema(
       trim: true,
       required: true,
     },
-    lat: {
-      type: String,
-      required: true,
-    },
-    lon: {
-      type: String,
-      required: true,
+    location: {
+      type: {
+        type: String,
+        enum: ['Point'],
+        required: true,
+      },
+      coordinates: {
+        type: [Number], // [longitude, latitude]
+        required: true,
+      },
     },
     typeOffer: {
       type: String,
@@ -61,6 +64,8 @@ const assistanceOfferSchema = new mongoose.Schema(
     timestamps: true,
   },
 );
+
+assistanceOfferSchema.index({ location: '2dsphere' });
 
 const AssistanceOffer = mongoose.model(
   'AssistanceOffer',

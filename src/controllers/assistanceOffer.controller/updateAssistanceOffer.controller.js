@@ -4,7 +4,7 @@ const { deleteImg } = require('../../utils/deleteAvatar');
 const fetchGeoCode = require('../../utils/fetchGeoCode');
 const formatForURL = require('../../utils/formatForURL');
 
-const updateAssistanceOfferController = async (req, res, next) => {
+const updateAssistanceOffer = async (req, res, next) => {
   const { id } = req.params;
   const { expires, city, address, postalcode, lat, lon } = req.body;
   const { user } = req;
@@ -62,4 +62,4 @@ const updateAssistanceOfferController = async (req, res, next) => {
   }
 };
 
-module.exports = updateAssistanceOfferController;
+module.exports = updateAssistanceOffer;
