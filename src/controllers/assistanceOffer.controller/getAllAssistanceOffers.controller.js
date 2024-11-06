@@ -95,27 +95,49 @@ The server will respond with a JSON object containing the following data:
 {
 	"assistancesOffers": [
 		{
-			"_id": "672aa137421157a5f26eac42",
-			"title": "Test offer3",
-			"description": "Test offer3",
+			"location": {
+				"type": "Point",
+				"coordinates": [
+					-0.504228,
+					38.3451509
+				]
+			},
+			"_id": "672b70a215468b25ff8c2f7b",
+			"title": "UPDATE 2 🤣",
+			"description": "Tengo dispolnible una habitación para dormir.",
 			"status": true,
-			"userId": "6729dc82810229f45e0ff022",
-			"availableUntil": "2025-12-31T00:00:00.000Z",
+			"userId": {
+				"_id": "672953991f7f64ac65037a94",
+				"name": "Daniele",
+				"lastname": "Mazzola",
+				"avatar": "https://res.cloudinary.com/dylazw28d/image/upload/v1730847605/avatar/jhnqgyqksyviox033xp5.png",
+				"birthDate": "1987-02-19T00:00:00.000Z",
+				"city": "Barcelona",
+				"address": "Carrer de Bailèn, 28, 3-a",
+				"postalcode": "08010",
+				"roles": [
+					"user"
+				],
+				"lat": "41.5380655",
+				"lon": "2.1071138",
+				"createdAt": "2024-11-04T23:07:05.537Z",
+				"updatedAt": "2024-11-05T23:00:05.603Z",
+				"__v": 0
+			},
+			"expires": "2024-11-08T00:00:00.000Z",
 			"img": "https://www.gisinfo.net/images/news_main/first_news_images/1940_image_400.jpg",
 			"city": "Alicante",
-			"address": "Pasaje metal 7, 5-8",
+			"address": "Pasaje metal 7, 5-A",
 			"postalcode": "03006",
-			"lat": "38.3451509",
-			"lon": "-0.504228",
-			"publicationDate": "2024-11-05T22:50:31.605Z",
-			"createdAt": "2024-11-05T22:50:31.606Z",
-			"updatedAt": "2024-11-05T23:15:48.240Z",
+			"typeOffer": "hygiene",
+			"createdAt": "2024-11-06T13:35:30.483Z",
+			"updatedAt": "2024-11-06T13:35:30.483Z",
 			"__v": 0
-		},
+		}
 	],
-	"total": 9,
+	"total": 1,
 	"page": 1,
-	"totalPages": 3
+	"totalPages": 1
 }
 Status Codes
 200 OK: The request was successful and the data is returned.
