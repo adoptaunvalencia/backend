@@ -4,10 +4,25 @@ const AssistanceOffer = require('../../models/assistance-offer-model/assistanceO
 const getAllAssistanceOffersController = async (req, res, next) => {
   // CLIENT = /api/assistance-offers?page=1&limit=10
   const { isAuth } = req;
-  const page = parseInt(req.query.page) || 1;
-  const limit = parseInt(req.query.limit) || 10;
-  const skip = (page - 1) * limit;
+  const { page = 1, limit = 10 } = req.query;
+  const skip = (page - 1) * limit
   try {
+    const pageNumber = parseInt(page, 10);
+    const limitNumber = parseInt(limit, 10);
+    if (isNaN(pageNumber) || pageNumber <= 0) {
+      return res
+        .status(400)
+        .json({ error: 'Invalid page number. It must be a positive integer.' });
+    }
+
+    if (isNaN(limitNumber) || limitNumber <= 0) {
+      return res
+        .status(400)
+        .json({
+          error: 'Invalid limit number. It must be a positive integer.',
+        });
+    }
+
     let query = AssistanceOffer.find();
 
     if (isAuth) {
@@ -108,6 +123,7 @@ The server will respond with a JSON object containing the following data:
 }
 Status Codes
 200 OK: The request was successful and the data is returned.
+400 Bad Request: The request was invalid (e.g., invalid query parameters).
 401 Unauthorized: The user is not authorized to view the assistance offers.
 500 Internal Server Error: A server error occurred while processing the request.
 Authentication
