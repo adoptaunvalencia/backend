@@ -5,18 +5,18 @@ const getAssistanceOfferByIdController = require('../../controllers/assistanceOf
 const updateAssistanceOfferController = require('../../controllers/assistanceOffer.controller/updateAssistanceOffer.controller');
 const deleteAssistanceOfferController = require('../../controllers/assistanceOffer.controller/deleteAssistanceOffer.controller');
 const authenticateUser = require('../../middleware/authenticateUserMiddleware');
-const filterUserInfo = require('../../middleware/filterUserInfoMiddleware');
+const isAuth = require('../../middleware/isAuth');
 
 //ROUTE | MIDDLEWARE | CONTROLLER
 //POST ASSISTANCE OFFER
-ROUTER.post('/', authenticateUser, createAssistanceOfferController);
+ROUTER.post('/create-assitance', authenticateUser, createAssistanceOfferController);
 //GET ALL ASSISTANCE OFFERS
-ROUTER.get('/', filterUserInfo, getAllAssistanceOffersController);
+ROUTER.get('/', isAuth, getAllAssistanceOffersController);
 //GET ASSISTANCE OFFER BY ID
-ROUTER.get('/:id', filterUserInfo, getAssistanceOfferByIdController);
+ROUTER.get('/get-assistance/:id', isAuth, getAssistanceOfferByIdController);
 //UPDATE ASSISTANCE OFFER
-ROUTER.put('/:id', authenticateUser, updateAssistanceOfferController);
+ROUTER.put('/update-assistance/:id', authenticateUser, updateAssistanceOfferController);
 //DELETE ASSISTANCE OFFER
-ROUTER.delete('/:id', authenticateUser, deleteAssistanceOfferController);
+ROUTER.delete('/delete-assistance/:id', authenticateUser, deleteAssistanceOfferController);
 
 module.exports = ROUTER;

@@ -1,22 +1,42 @@
 const AssistanceOffer = require('../../models/assistance-offer-model/assistanceOffer.model');
+const comproveDate = require('../../utils/comproveDate');
+const fetchGeoCode = require('../../utils/fetchGeoCode');
+const formatForURL = require('../../utils/formatForURL');
 
 const createAssistanceOfferController = async (req, res, next) => {
+  const { expires, city, address, postalcode, lat, lon } = req.body;
+  const { user } = req;
+  let geocodeData;
   try {
-    const { availableUntil } = req.body;
-
-    const availableUntilDate = new Date(availableUntil);
-    if (availableUntilDate <= Date.now()) {
-      return res
-        .status(400)
-        .json({ message: 'The available until date must be in the future' });
+    if (!lat || !lon) {
+      const newCity = formatForURL(city);
+      const newAddress = formatForURL(address);
+      const newPC = formatForURL(postalcode);
+      geocodeData = await fetchGeoCode(newAddress, newCity, newPC);
+      if (!geocodeData) {
+        return res.status(400).json({
+          message:
+            'Unable to fetch geolocation data. Please check the address information and try again.',
+        });
+      }
     }
-
-    const createAssistanceOffer = new AssistanceOffer(req.body);
-    await createAssistanceOffer.save();
-    const assistanceOffer = await AssistanceOffer.findById({ _id: createAssistanceOffer._id });
-    return res
-      .status(201)
-      .json({ message: 'Assistance Offer successfully created', assistanceOffer})
+    const comproveExpire = comproveDate(expires);
+    if (!comproveExpire) {
+      return res.status(400).json({
+        message: 'The expiration date must be at least 24 hours in the future.',
+      });
+    }
+    const assistanceOffer = new AssistanceOffer({
+      ...req.body,
+      userId: user._id,
+      lat: lat || geocodeData[0].lat,
+      lon: lon || geocodeData[0].lon,
+    });
+    await assistanceOffer.save();
+    return res.status(201).json({
+      message: 'Assistance Offer successfully created',
+      assistanceOffer,
+    });
   } catch (error) {
     next(error);
   }

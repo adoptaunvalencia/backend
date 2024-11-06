@@ -1,23 +1,65 @@
 const AssistanceOffer = require('../../models/assistance-offer-model/assistanceOffer.model');
+const comproveDate = require('../../utils/comproveDate');
+const fetchGeoCode = require('../../utils/fetchGeoCode');
+const formatForURL = require('../../utils/formatForURL');
 
 const updateAssistanceOfferController = async (req, res, next) => {
-  try {
-    const updateAssistanceOffer = await AssistanceOffer.findByIdAndUpdate(
-      req.params.id,
-      { $set: req.body },
-      { new: true });
+  const { id } = req.params;
+  const { expires, city, address, postalcode, lat, lon } = req.body;
+  const { user } = req;
+  let geocodeData;
 
-    if (!updateAssistanceOffer) {
-      return res
-        .status(404)
-        .json({ message: 'Assistance Offer not found' });
+  try {
+    // Verificamos si la fecha de expiración es válida (mínimo 24 horas)
+    const comproveExpire = comproveDate(expires);
+    if (!comproveExpire) {
+      return res.status(400).json({
+        message: 'The expiration date must be at least 24 hours in the future.',
+      });
     }
-    return res
-      .status(201)
-      .json({ message: 'Assistance Offer successfully updated', updateAssistanceOffer });
+    if (!lat || !lon) {
+      const newCity = formatForURL(city);
+      const newAddress = formatForURL(address);
+      const newPC = formatForURL(postalcode);
+
+      geocodeData = await fetchGeoCode(newAddress, newCity, newPC);
+      if (!geocodeData) {
+        return res.status(400).json({
+          message:
+            'Unable to fetch geolocation data. Please check the address information and try again.',
+        });
+      }
+    }
+    const assistanceOffer = await AssistanceOffer.findById(id);
+
+    if (!assistanceOffer) {
+      return res.status(404).json({
+        message: 'Assistance offer not found',
+      });
+    }
+
+    if (assistanceOffer.userId.toString() !== user._id.toString()) {
+      return res.status(403).json({
+        message: 'You are not authorized to update this assistance offer.',
+      });
+    }
+
+    assistanceOffer.set({
+      ...req.body,
+      userId: user._id, // El usuario sigue siendo el mismo
+      lat: lat || geocodeData[0].lat,
+      lon: lon || geocodeData[0].lon,
+    });
+
+    await assistanceOffer.save();
+
+    return res.status(200).json({
+      message: 'Assistance Offer successfully updated',
+      assistanceOffer,
+    });
   } catch (error) {
     next(error);
   }
-}
+};
 
 module.exports = updateAssistanceOfferController;
