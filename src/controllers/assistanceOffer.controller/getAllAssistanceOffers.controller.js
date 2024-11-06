@@ -290,30 +290,34 @@ The server responds with a JSON object containing the following:
 
 ```json
 {
-  "assistanceOffers": [
-    {
-      "title": "Food Assistance",
-      "description": "Offering free food to families in need.",
-      "status": true,
-      "userId": {
-        "_id": "60d0fe4f5311236168a109ca",
-        "name": "John Doe",
-        "city": "Valencia"
-      },
-      "expires": "2024-12-31T00:00:00.000Z",
-      "img": "https://example.com/image.jpg",
-      "city": "Valencia",
-      "address": "Pasaje metal 7, 58",
-      "postalcode": "03030",
-      "lat": "40.7128",
-      "lon": "-74.0060",
-      "typeOffer": "food"
-    },
-    ......
-  ],
-  "total": 20,
-  "page": 1,
-  "totalPages": 2
+	"assistanceOffers": [
+		{
+			"location": {
+				"type": "Point",
+				"coordinates": [
+					-0.504228,
+					38.3451509
+				]
+			},
+			"_id": "672b70a215468b25ff8c2f7b",
+			"title": "UPDATE 2 🤣",
+			"description": "Tengo dispolnible una habitación para dormir.",
+			"status": true,
+			"userId": "672953991f7f64ac65037a94",
+			"expires": "2024-11-08T00:00:00.000Z",
+			"img": "https://www.gisinfo.net/images/news_main/first_news_images/1940_image_400.jpg",
+			"city": "Alicante",
+			"address": "Pasaje metal 7, 5-A",
+			"postalcode": "03006",
+			"typeOffer": "hygiene",
+			"createdAt": "2024-11-06T13:35:30.483Z",
+			"updatedAt": "2024-11-06T13:35:30.483Z",
+			"__v": 0
+		}
+	],
+	"total": 1,
+	"page": 1,
+	"totalPages": 1
 }
 
 #### Status Codes
