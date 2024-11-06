@@ -5,6 +5,8 @@ const getAllAssistanceOffersController = async (req, res, next) => {
   const { isAuth } = req;
   try {
     let query = AssistanceOffer.find();
+    // PAGINATIONS
+    // FILTERS
     if (isAuth) {
       query = query.populate({
         path: 'userId',
@@ -19,28 +21,3 @@ const getAllAssistanceOffersController = async (req, res, next) => {
 };
 
 module.exports = getAllAssistanceOffersController;
-
-/**
- * //! KIKE ESTO NO SE HACE
- * 
- * try {
-    const assistanceOffers = await AssistanceOffer.find({});
-    
-    const assistanceOffersWithUserInfo = await Promise.all(
-      assistanceOffers.map(async (offer) => {
-        const user = await User.findById(offer.userId).select(
-          req.isAuth ? '-password' : 'lat lon'
-        );
-
-        return {
-          ...offer.toObject(),
-          user: user.toObject(),
-        };
-      })
-    );
-
-    return res.status(200).json({ assistanceOffers: assistanceOffersWithUserInfo });
-  } catch (error) {
-    next(error);
-  }
- */

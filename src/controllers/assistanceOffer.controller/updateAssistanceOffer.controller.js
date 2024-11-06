@@ -1,5 +1,6 @@
 const AssistanceOffer = require('../../models/assistance-offer-model/assistanceOffer.model');
 const comproveDate = require('../../utils/comproveDate');
+const { deleteImg } = require('../../utils/deleteAvatar');
 const fetchGeoCode = require('../../utils/fetchGeoCode');
 const formatForURL = require('../../utils/formatForURL');
 
@@ -10,7 +11,6 @@ const updateAssistanceOfferController = async (req, res, next) => {
   let geocodeData;
 
   try {
-    // Verificamos si la fecha de expiración es válida (mínimo 24 horas)
     const comproveExpire = comproveDate(expires);
     if (!comproveExpire) {
       return res.status(400).json({
@@ -37,7 +37,7 @@ const updateAssistanceOfferController = async (req, res, next) => {
         message: 'Assistance offer not found',
       });
     }
-
+    
     if (assistanceOffer.userId.toString() !== user._id.toString()) {
       return res.status(403).json({
         message: 'You are not authorized to update this assistance offer.',

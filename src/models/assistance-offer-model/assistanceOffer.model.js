@@ -24,7 +24,8 @@ const assistanceOfferSchema = new mongoose.Schema(
     },
     img: {
       type: String,
-      default:'https://www.gisinfo.net/images/news_main/first_news_images/1940_image_400.jpg'
+      default:
+        'https://www.gisinfo.net/images/news_main/first_news_images/1940_image_400.jpg',
     },
     city: {
       type: String,
@@ -49,12 +50,20 @@ const assistanceOfferSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    typeOffer: {
+      typy: String,
+      enum: ['accommodation', 'hygiene', 'food', 'pet_fostering'],
+      required: true,
+    },
   },
   {
     collection: 'AssistanceOffer',
     timestamps: true,
-  }
+  },
 );
 
-const AssistanceOffer = mongoose.model('AssistanceOffer', assistanceOfferSchema);
+const AssistanceOffer = mongoose.model(
+  'AssistanceOffer',
+  assistanceOfferSchema,
+);
 module.exports = AssistanceOffer;
