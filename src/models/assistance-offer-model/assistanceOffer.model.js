@@ -51,7 +51,7 @@ const assistanceOfferSchema = new mongoose.Schema(
       required: true,
     },
     typeOffer: {
-      typy: String,
+      type: String,
       enum: ['accommodation', 'hygiene', 'food', 'pet_fostering'],
       required: true,
     },
