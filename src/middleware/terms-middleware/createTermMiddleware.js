@@ -18,9 +18,11 @@ const createTerms = async (req, res) => {
 
     await newTerms.save();
     res.status(201).json({ message: 'Terms created successfully', terms: newTerms });
+    next();
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Error creating terms' });
+    next(error);
   }
 };
 
