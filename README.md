@@ -372,9 +372,9 @@ Example Response
 
 # User API Endpoints
 
-**Server URL:** `https://production-proyect-dana.vercel.app`
+**Server URL:** `https://developer-proyect-dana.vercel.app`
 
-**User Endpoint:** `https://production-proyect-dana.vercel.app/secure/api/v1/user`
+**User Endpoint:** `https://developer-proyect-dana.vercel.app/secure/api/v1/user`
 
 | HTTP Method                  | URL                | Headers          | Request Body                                                                |            Description                                                      | Response               |
 | ---------------------------- | ------------------ | ---------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- | ---------------------- |
@@ -870,9 +870,9 @@ The server will respond with a message confirming the update, along with the upd
 
 # Assistance Offer API Endpoints
 
-**Server URL:** `https://production-proyect-dana.vercel.app`
+**Server URL:** `https://developer-proyect-dana.vercel.app`
 
-**Assistance Offer Endpoint:**  `https://production-proyect-dana.vercel.app/secure/api/v1/assistance-offer`
+**Assistance Offer Endpoint:**  `https://developer-proyect-dana.vercel.app/secure/api/v1/assistance-offer`
 
 | HTTP Method | URL                                   | Headers                | Request Body Description                                                                                                                                      | Response                                                                                      |
 |-------------|---------------------------------------|------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------|
