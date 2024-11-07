@@ -1,9 +1,7 @@
 // ENV
 const dotenv = require('dotenv');
 const env = process.env.NODE_ENV || 'development';
-/* if (env === 'development') {
-  dotenv.config({ path: `.env.${env}` });
-} */
+env === 'development' ? dotenv.config({ path: `.env.${env}` }) : null;
 
 // END ENV
 
