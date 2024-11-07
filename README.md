@@ -77,6 +77,9 @@ To run this project, you will need to add the following environment variables to
 | │ │ ├── register.controller.js
 | │ │ └── updateUser.js
 │ ├── middlewares
+│ │ ├── terms-middleware
+│ │ │ ├── acceptTermsMiddleware.js
+│ │ │ └── createTermMiddleware.js
 │ │ ├── authenticateUserMiddleware.js
 │ │ ├── checkAvatarMiddleware.js
 │ │ ├── getProfileMiddleware.js
