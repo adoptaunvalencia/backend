@@ -1,20 +1,30 @@
 const User = require('../../models/users-model/user.model');
+const AssistanceOffer = require('../../models/assistance-offer-model/assistanceOffer.model');
 
 const getAssistanceOffer = async (req, res, next) => {
-  const { user, assistance, isAuth } = req;
+  const { isAuth } = req;
+  const { id } = req.params;
   try {
-    const userInfo = await User.findById(user._id).select(
-      isAuth ? '-password' : 'lat lon'
-    );
+    let query = await AssistanceOffer.findById(id);
 
-    const assistanceOfferWithUserInfo = {
-      ...assistance.toObject(),
-      user: userInfo.toObject(),
-    };
+    if (isAuth) {
+      query = query.populate({
+        path: 'userId',
+        select: '-password -email',
+      });
+    }
+
+    const AssistanceOfferById = await query;
+
+    if (!AssistanceOfferById) {
+      return res
+        .status(404)
+        .json({ message: 'Assistance Offer not found' });
+    }
 
     return res
       .status(200)
-      .json({ assistanceOffer: assistanceOfferWithUserInfo })
+      .json(AssistanceOfferById)
   } catch (error) {
     next(error);
   }
