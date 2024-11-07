@@ -18,7 +18,6 @@ APP.use(express.json());
 // Connection DDBB
 const connection = require('./src/config/connection');
 connection();
-// End Connection DDBB
 
 //Cloudinary
 connectCloudinary();
