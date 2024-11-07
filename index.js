@@ -1,7 +1,6 @@
 // ENV
 const dotenv = require('dotenv');
 const env = process.env.NODE_ENV || 'development';
-dotenv.config({ path: `.env.${env}` });
 // END ENV
 
 const config = require('./src/config/config.env');
@@ -18,7 +17,6 @@ APP.use(express.json());
 // Connection DDBB
 const connection = require('./src/config/connection');
 connection();
-// End Connection DDBB
 
 //Cloudinary
 connectCloudinary();
