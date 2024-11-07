@@ -1,18 +1,19 @@
-const { google } = require('googleapis')
-const OAuth2 = google.auth.OAuth2
+const config = require('./config.env');
+const { google } = require('googleapis');
+const OAuth2 = google.auth.OAuth2;
 
-const OAUTH_CLIENTID = process.env.OAUTH_CLIENTID
-const OAUTH_CLIENT_SECRET = process.env.OAUTH_CLIENT_SECRET
-const OAUTH_REFRESH_TOKEN = process.env.OAUTH_REFRESH_TOKEN
+const OAUTH_CLIENTID = config.emailConfig.oauthClientId;
+const OAUTH_CLIENT_SECRET = config.emailConfig.oauthClientSecret;
+const OAUTH_REFRESH_TOKEN = config.emailConfig.oauthRefreshToken;
 
 const oauth2Client = new OAuth2(
   OAUTH_CLIENTID,
   OAUTH_CLIENT_SECRET,
-  'https://developers.google.com/oauthplayground'
-)
+  'https://developers.google.com/oauthplayground',
+);
 
 oauth2Client.setCredentials({
-  refresh_token: OAUTH_REFRESH_TOKEN
-})
+  refresh_token: OAUTH_REFRESH_TOKEN,
+});
 
-module.exports = { oauth2Client }
+module.exports = { oauth2Client };

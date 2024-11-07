@@ -1,5 +1,6 @@
 const User = require('../models/users-model/user.model.js');
 const { verifyToken } = require('../config/jwt');
+const config = require('../config/config.env.js');
 
 const authenticateUser = async (req, res, next) => {
   const token =
@@ -8,7 +9,7 @@ const authenticateUser = async (req, res, next) => {
     return res.status(401).json({ message: 'Authorization token required.' });
   }
   try {
-    const decode = verifyToken(token, process.env.JWT_SECRET);
+    const decode = verifyToken(token, config.jwtSecret);
     const user = await User.findById(decode.id);
     if (!user) {
       return res.status(401).json({

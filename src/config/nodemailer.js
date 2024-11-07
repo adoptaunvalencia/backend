@@ -1,10 +1,12 @@
+const config = require('./config.env');
 const nodemailer = require('nodemailer');
 const { oauth2Client } = require('./oauth.google');
 
-const EMAIL_HOST = process.env.EMAIL_HOST;
-const OAUTH_CLIENT_ID = process.env.OAUTH_CLIENTID;
-const OAUTH_CLIENT_SECRET = process.env.OAUTH_CLIENT_SECRET;
-const OAUTH_REFRESH_TOKEN = process.env.OAUTH_REFRESH_TOKEN;
+const EMAIL_HOST = config.emailConfig.host;
+const OAUTH_CLIENT_ID = config.emailConfig.oauthClientId;
+const OAUTH_CLIENT_SECRET = config.emailConfig.oauthClientSecret;
+const OAUTH_REFRESH_TOKEN = config.emailConfig.oauthRefreshToken;
+const HOST = config.emailConfig.host;
 
 const createTransporter = async () => {
   try {
@@ -34,7 +36,7 @@ const sendMail = async (to, subject, htmlContent) => {
   try {
     const transporter = await createTransporter();
     const mailOptions = {
-      from: process.env.EMAIL_HOST,
+      from: HOST,
       to,
       subject,
       html: htmlContent,

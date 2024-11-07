@@ -1,4 +1,10 @@
-require('dotenv').config();
+// ENV
+const dotenv = require('dotenv');
+const env = process.env.NODE_ENV || 'integration';
+dotenv.config({ path: `.env.${env}` });
+// END ENV
+
+const config = require('./src/config/config.env');
 const express = require('express');
 const cors = require('cors');
 const connectCloudinary = require('./src/config/cloudinary');
@@ -40,6 +46,6 @@ APP.use((error, req, res, next) => {
 //END ROUTES
 
 // CONFIG PORT
-const PORT = process.env.PORT || 3000;
+const PORT = config.port;
 APP.listen(PORT, () => console.log(`Server run, port: * ${PORT}`));
 // END CONFIG PORT

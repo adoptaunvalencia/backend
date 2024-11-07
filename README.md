@@ -1,6 +1,6 @@
 # Adopta un Valenciano
 
-Our goal is to provide a direct channel for people affected by SANA to find temporary shelter, access to food and a place for personal hygiene, provided by volunteers who want to help. This initiative aims to be simple, accessible and fast, maximizing the reach and ease of connection between victims and people who can offer help.
+Our goal is to provide a direct channel for people affected by DANA to find temporary shelter, access to food and a place for personal hygiene, provided by volunteers who want to help. This initiative aims to be simple, accessible and fast, maximizing the reach and ease of connection between victims and people who can offer help.
 
 ## Table of Content 
 

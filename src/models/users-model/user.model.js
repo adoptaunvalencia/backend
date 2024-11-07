@@ -35,7 +35,6 @@ const userSchema = new mongoose.Schema(
       type: Date,
       required: true,
     },
-    //FORGOT PASSWORD CREATE A TOKEN
     token: {
       type: String,
       trim: true,
