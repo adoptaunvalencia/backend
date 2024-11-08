@@ -14,6 +14,7 @@ const {
   updateUser,
   updateAvatar,
   updateAddress,
+  deleteUser,
 } = require('../../controllers/user.controller/updateUser.controller');
 const { profileAvatar } = require('../../middleware/checkAvatarMiddleware');
 
@@ -36,5 +37,7 @@ ROUTER.put('/update-user', authenticateUser, updateUser);
 ROUTER.put('/update-avatar', authenticateUser, profileAvatar.single('avatar'), updateAvatar);
 // UPDATE ADDRESS
 ROUTER.put('/update-address', authenticateUser, updateAddress);
+// DELETE USER AND RELATED OFFERS
+ROUTER.delete('/delete-user', authenticateUser, deleteUser);
 
 module.exports = ROUTER;

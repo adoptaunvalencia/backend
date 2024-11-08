@@ -387,6 +387,7 @@ Example Response
 | [**PUT**](#update-user)      | `/update-user`     | Bearer `{token}` | `{ any_user_field_except_city_address_postalcode }`                         | Updates user data except for address fields.                                | `{ message, user }`    |
 | [**PUT**](#update-avatar)    | `/update-avatar`   | Bearer `{token}` | `multipart/form-data` with field `avatar` (image file)                      | Updates the user's avatar image.                                            | `{ message, user }`    |
 | [**PUT**](#update-address)   | `/update-address`  | Bearer `{token}` | `{ city, address, postalcode }`                                             | Updates the user's address with geolocation data.                           | `{ message, address }` |
+| [**DELETE**](#delete-user)   | `/delete-user`     | Bearer `{token}` |                                                                             | Delete the user and all related assistance offers.                          |                        |
 
 
 ## Get User Profile
@@ -866,6 +867,32 @@ The server will respond with a message confirming the update, along with the upd
 - This endpoint requires authentication. The user must be logged in, and the request must include a valid token in the headers for authorization.
 
 
+## Delete User
+
+### Description
+This endpoint allows a user to delete their account and all related assistance offers. Once the user is deleted, any offers associated with the user are also removed from the system. This operation is irreversible.
+
+### URL
+DELETE `https://developer-proyect-dana.vercel.app/secure/api/v1/user/delete-user`
+
+### Request Headers
+- Authorization: (required) Include the JWT token of the authenticated user.
+  - `Authorization: Bearer <JWT_TOKEN>`
+
+### Request Body
+No request body is required for this endpoint.
+
+### Response
+The server will respond with 204 No Content as a confirmation that user is deleted
+
+#### Status Codes
+204 No Content: The user and related assistance offers were successfully deleted.
+404 Not Found: The user was not found, or there was an error deleting the user.
+500 Internal Server Error: A server error occurred while processing the request.
+
+#### Authentication
+This endpoint requires authentication. The user must be logged in, and the request must include a valid token in the headers for authorization.
+
 
 
 # Assistance Offer API Endpoints
@@ -874,7 +901,7 @@ The server will respond with a message confirming the update, along with the upd
 
 **Assistance Offer Endpoint:** `https://developer-proyect-dana.vercel.app/secure/api/v1/assistance-offer`
 
-| HTTP Method | URL                                   | Headers                | Request Body Description                                                                                                                                      | Response                                                                                      |
+| HTTP Method | URL                                   | Headers                | Request Body | Description                                                                                                                                      | Response                                                                                      |
 |-------------|---------------------------------------|------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------|
 | [**GET**](#get-assistance-offers)         | `/`                       | Optional: Bearer {token} | | Retrieves all available assistance offers.                                                                                                                 | `{ assistanceOffers }`                                                                          |
 | [**GET**](#get-assistance-offer-by-id)    | `/get-assistance/:id`       | Optional: Bearer {token} | | Retrieves an assistance offer by its unique ID.                                                                                                            | `{ assistanceOffer }`                                                                           |
