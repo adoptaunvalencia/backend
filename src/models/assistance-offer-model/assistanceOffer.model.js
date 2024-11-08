@@ -53,11 +53,20 @@ const assistanceOfferSchema = new mongoose.Schema(
         required: true,
       },
     },
-    typeOffer: {
-      type: String,
-      enum: ['accommodation', 'hygiene', 'food', 'pet_fostering'],
-      required: true,
-    },
+    typeOffer: [
+      {
+        type: {
+          type: String,
+          enum: ['accommodation', 'hygiene', 'food', 'pet_fostering'],
+          required: true,
+        },
+        quantity: {
+          type: Number,
+          required: true,
+          min: 1, // Cantidad mínima de 1
+        },
+      },
+    ],
   },
   {
     collection: 'AssistanceOffer',
