@@ -1,4 +1,5 @@
 const User = require('../../models/users-model/user.model');
+const AssistanceOffer = require('../../models/assistance-offer-model/assistanceOffer.model');
 const { deleteImg } = require('../../utils/deleteAvatar');
 const fetchGeoCode = require('../../utils/fetchGeoCode');
 
@@ -83,4 +84,19 @@ const updateAddress = async (req, res, next) => {
   }
 };
 
-module.exports = { updateUser, updateAvatar, updateAddress };
+const deleteUser = async (req, res, next) => {
+  const { user } = req;
+  const deleteUser = await User.findByIdAndDelete(user._id);
+  if (!deleteUser) {
+    return res.status(404)
+    .json({ message: 'Ups, there was a problem, please try again' });
+  }
+
+  await AssistanceOffer.deleteMany({ userId: user._id });
+
+  return res
+    .status(204)
+    .json({ message: 'User and related Assistance Offers successfully deleted' })
+}
+
+module.exports = { updateUser, updateAvatar, updateAddress, deleteUser };
