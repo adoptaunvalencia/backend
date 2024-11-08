@@ -1168,7 +1168,7 @@ The server will respond with a JSON object containing the created assistance off
 This endpoint allows a user to update an existing assistance offer. The user must be the creator of the assistance offer to update it. The offer details (including expiration date, location, etc.) can be modified, and if the address is updated, geolocation data will be recalculated. 
 
 ### URL
-PUT `https://developer-proyect-dana.vercel.app/secure/api/v1/assistance-offer/create-assistance/update-assistance/:id`
+PUT `https://developer-proyect-dana.vercel.app/secure/api/v1/assistance-offer/update-assistance/:id`
 
 ### URL Parameters
 - `id`: (required) The ID of the assistance offer to be updated.
@@ -1247,7 +1247,7 @@ The server will respond with a JSON object containing the updated assistance off
 This endpoint allows the client to delete an existing assistance offer by its unique ID. If the offer is successfully deleted, a 204 status code is returned. If the offer cannot be found, a 404 status code is returned.
 
 ### URL
-DELETE `https://developer-proyect-dana.vercel.app/secure/api/v1/assistance-offer/create-assistance/delete-assistance/:id`
+DELETE `https://developer-proyect-dana.vercel.app/secure/api/v1/assistance-offer/delete-assistance/:id`
 
 ### URL Parameters
 - `id` (required): The unique identifier of the assistance offer to be deleted.
@@ -1284,7 +1284,7 @@ The server will respond with a JSON object containing the message indicating whe
 This endpoint allows clients to retrieve a filtered list of assistance offers based on location, assistance type, or proximity to a geographical point. If useLocation=true, the client must provide lat, lon, and distance for a proximity search; otherwise, the client can specify a city using location.
 
 ### URL
-- GET `https://developer-proyect-dana.vercel.app/secure/api/v1/assistance-offer/create-assistance/filter`
+- GET `https://developer-proyect-dana.vercel.app/secure/api/v1/assistance-offer/filter`
 
 ### Query Parameters
 | Parameter       | Type     | Description                                                                                       |
@@ -1302,17 +1302,17 @@ This endpoint allows clients to retrieve a filtered list of assistance offers ba
 #### Search by Current Location (Proximity Search)
 **URL:**
 
-- GET /api/assistance-offers/filter?useLocation=true&lat=40.7128&lon=-74.0060&distance=10&assistanceType=food&page=1&limit=10
+- GET `https://developer-proyect-dana.vercel.app/secure/api/v1/assistance-offer/filter?useLocation=true&lat=40.7128&lon=-74.0060&distance=10&assistanceType=food&page=1&limit=10`
 **Description:** Fetch assistance offers within a 10 km radius from the specified latitude and longitude, filtering by assistance type `food`.
 
 #### Search by City
 **URL:**
-- GET /api/assistance-offers/filter?useLocation=false&location=Valencia&assistanceType=accommodation&page=2&limit=5
+- GET `https://developer-proyect-dana.vercel.app/secure/api/v1/assistance-offer/filter?useLocation=false&location=Valencia&assistanceType=accommodation&page=2&limit=5`
 **Description:** Fetch assistance offers available in Valencia for the assistance type `accommodation`.
 
 #### Search by Assistance Type Only
 **URL:**
-GET /api/assistance-offers/filter?assistanceType=hygiene
+GET `https://developer-proyect-dana.vercel.app/secure/api/v1/assistance-offer/filter?assistanceType=hygiene`
 **Description:** Fetch all offers that provide hygiene-related assistance without location filtering.
 
 ### Request Headers
