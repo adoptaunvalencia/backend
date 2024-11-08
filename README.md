@@ -370,9 +370,9 @@ Example Response
 
 # API Documentation
 
-# User API Endpoints
-
 **Server URL:** `https://developer-proyect-dana.vercel.app`
+
+# User API Endpoints
 
 **User Endpoint:** `https://developer-proyect-dana.vercel.app/secure/api/v1/user`
 
@@ -395,7 +395,7 @@ Example Response
 This endpoint returns the profile information of the user who is currently authenticated. The profile data is directly retrieved from the authenticated user’s context (`req.user`), which is typically populated by middleware handling JWT validation.
 
 ### URL
-GET `/api/user/`
+GET `https://developer-proyect-dana.vercel.app/secure/api/v1/user`
 
 ### Request Headers
 - Authorization: (required) Include the JWT token of the authenticated user.
@@ -440,7 +440,7 @@ The server will respond with a JSON object containing the authenticated user’s
 This endpoint allows a new user to register by providing necessary information, including an address that is verified with geolocation data. Upon successful registration, a welcome email is sent to the new user.
 
 ### URL
-POST `/api/user/register-user`
+POST `https://developer-proyect-dana.vercel.app/secure/api/v1/user/register-user`
 
 ### Request Body
 The request body for creating a new user must include the following fields in JSON format:
@@ -502,7 +502,7 @@ The server will respond with a JSON object containing the authenticated user’s
 This endpoint authenticates a user based on their email and password. If the credentials are valid, the endpoint returns a JWT token for authorization in subsequent requests.
 
 ### URL
-POST `/api/user/login-user`
+POST `https://developer-proyect-dana.vercel.app/secure/api/v1/user/login-user`
 
 ### Request Body
 The request body should contain the following parameters:
@@ -573,7 +573,7 @@ Upon successful authentication, the response includes:
 These endpoints allow users to initiate a password reset by generating a unique token and sending a reset email. The `forgotPassword` endpoint generates a token and sends it to the user's email, while the `comproveToken` endpoint checks if the token is valid for password reset.
 
 ### URL
-POST `/api/user/forgot-password`
+POST `https://developer-proyect-dana.vercel.app/secure/api/v1/user/forgot-password`
 
 ### Request Body
 The request body should contain the following parameter:
@@ -609,7 +609,7 @@ The server will respond with a message indicating whether the password reset ema
 This endpoint allows the client to verify whether a password reset token is valid by checking if it exists in the user's record. It is used to confirm the legitimacy of the token before allowing the user to reset their password.
 
 ### URL
-POST `/api/user/comprove-token`
+POST `https://developer-proyect-dana.vercel.app/secure/api/v1/user/comprove-token`
 
 ### Request Body
 - `token` (required): The token to be verified, which was sent to the user during the password reset process.
@@ -642,7 +642,7 @@ The server will respond with a status (boolean) indicating whether the token is 
 This endpoint allows the client to update the user's password using a valid password reset token. Once the token is verified, the new password is encrypted and saved, and the token is removed from the user's record. A confirmation email is sent to notify the user of the password change.
 
 ### URL
-PUT `/api/user/update-password`
+PUT `https://developer-proyect-dana.vercel.app/secure/api/v1/user/update-password`
 
 ### Request Body
 The request body should contain the following parameters:
@@ -679,7 +679,7 @@ The server will respond with a message indicating whether the password reset ema
 This endpoint allows the client to update the user's information, excluding address details. If the request body contains `city`, `address`, or `postalcode`, the update will be rejected as these fields cannot be modified through this endpoint.
 
 ### URL
-PUT `/api/user/update-user`
+PUT `https://developer-proyect-dana.vercel.app/secure/api/v1/user/update-user`
 
 ### Request Headers
 - Authorization: (required) Include the JWT token of the authenticated user.
@@ -752,7 +752,7 @@ The server will respond with a message indicating whether the update was success
 This endpoint allows the client to update the user's avatar. The request should include the new avatar image as part of a file upload. The old avatar will be deleted, and the new one will be stored in the user's profile.
 
 ### URL
-PUT `/api/user/update-avatar`
+PUT `https://developer-proyect-dana.vercel.app/secure/api/v1/user/update-avatar`
 
 ### Request Headers
 - Authorization: (required) Include the JWT token of the authenticated user.
@@ -810,7 +810,7 @@ The server will respond with the updated user information, including the new ava
 This endpoint allows the user to update their address information, including the city, address, and postal code. The system will also update the latitude (`lat`) and longitude (`lon`) based on the new address using the GeoCode API. The request is only permitted if the user is authenticated, and the address information is successfully updated in the database.
 
 ### URL
-PUT `/api/user/update-address`
+PUT `https://developer-proyect-dana.vercel.app/secure/api/v1/user/update-address`
 
 ### Request Headers
 - Authorization: (required) Include the JWT token of the authenticated user.
@@ -872,7 +872,7 @@ The server will respond with a message confirming the update, along with the upd
 
 **Server URL:** `https://developer-proyect-dana.vercel.app`
 
-**Assistance Offer Endpoint:**  `https://developer-proyect-dana.vercel.app/secure/api/v1/assistance-offer`
+**Assistance Offer Endpoint:** `https://developer-proyect-dana.vercel.app/secure/api/v1/assistance-offer`
 
 | HTTP Method | URL                                   | Headers                | Request Body Description                                                                                                                                      | Response                                                                                      |
 |-------------|---------------------------------------|------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------|
@@ -896,7 +896,7 @@ When creating a new assistance offer, if the user decides to submit the same add
 This endpoint allows the client to fetch a paginated list of assistance offers. The client can specify the page number and the number of results per page. If the user is authenticated (`isAuth`), the response includes additional user data (excluding sensitive information such as password and email) for each offer.
 
 ### URL
-GET `/api/assistance-offer/`
+GET `https://developer-proyect-dana.vercel.app/secure/api/v1/assistance-offer/`
 
 ### Query Parameters
 The client can pass the following query parameters in the URL for pagination:
@@ -965,7 +965,10 @@ The server will respond with a JSON object containing the following data:
 			"city": "Alicante",
 			"address": "Pasaje metal 7, 5-A",
 			"postalcode": "03006",
-			"typeOffer": "hygiene",
+			"typeOffer": {
+        type: "accommodation",
+        quantity: 2
+      }
 			"createdAt": "2024-11-06T13:35:30.483Z",
 			"updatedAt": "2024-11-06T13:35:30.483Z",
 			"__v": 0
@@ -995,7 +998,7 @@ The server will respond with a JSON object containing the following data:
 This endpoint allows the client to retrieve a specific assistance offer by its ID. If the user is authenticated (`isAuth`), the response will include additional information about the user who created the offer, excluding sensitive data such as password and email.
 
 ### URL
-GET `/api/assistance-offer/get-assistance/:id`
+GET `https://developer-proyect-dana.vercel.app/secure/api/v1/assistance-offer/get-assistance/:id`
 
 ### URL Parameters
 - `id`: (required) The ID of the assistance offer to retrieve.
@@ -1010,23 +1013,48 @@ The server will respond with a JSON object containing the specific assistance of
 #### Example Response:
 ```
 {
-  "_id": "672aa137421157a5f26eac42",
-  "title": "Test offer3",
-  "description": "Test offer3",
-  "status": true,
-  "userId": "6729dc82810229f45e0ff022",
-  "availableUntil": "2025-12-31T00:00:00.000Z",
-  "img": "https://www.gisinfo.net/images/news_main/first_news_images/1940_image_400.jpg",
-  "city": "Alicante",
-  "address": "Pasaje metal 7, 5-8",
-  "postalcode": "03006",
-  "lat": "38.3451509",
-  "lon": "-0.504228",
-  "publicationDate": "2024-11-05T22:50:31.605Z",
-  "createdAt": "2024-11-05T22:50:31.606Z",
-  "updatedAt": "2024-11-05T23:15:48.240Z",
-  "__v": 0,
-}
+			"location": {
+				"type": "Point",
+				"coordinates": [
+					-0.504228,
+					38.3451509
+				]
+			},
+			"_id": "672b70a215468b25ff8c2f7b",
+			"title": "UPDATE 2 🤣",
+			"description": "Tengo dispolnible una habitación para dormir.",
+			"status": true,
+			"userId": {
+				"_id": "672953991f7f64ac65037a94",
+				"name": "Daniele",
+				"lastname": "Mazzola",
+				"avatar": "https://res.cloudinary.com/dylazw28d/image/upload/v1730847605/avatar/jhnqgyqksyviox033xp5.png",
+				"birthDate": "1987-02-19T00:00:00.000Z",
+				"city": "Barcelona",
+				"address": "Carrer de Bailèn, 28, 3-a",
+				"postalcode": "08010",
+				"roles": [
+					"user"
+				],
+				"lat": "41.5380655",
+				"lon": "2.1071138",
+				"createdAt": "2024-11-04T23:07:05.537Z",
+				"updatedAt": "2024-11-05T23:00:05.603Z",
+				"__v": 0
+			},
+			"expires": "2024-11-08T00:00:00.000Z",
+			"img": "https://www.gisinfo.net/images/news_main/first_news_images/1940_image_400.jpg",
+			"city": "Alicante",
+			"address": "Pasaje metal 7, 5-A",
+			"postalcode": "03006",
+			"typeOffer": {
+        type: "accommodation",
+        quantity: 2
+      }
+			"createdAt": "2024-11-06T13:35:30.483Z",
+			"updatedAt": "2024-11-06T13:35:30.483Z",
+			"__v": 0
+		}
 ```
 #### Status Codes:
 - 200 OK: The request was successful, and the requested assistance offer is returned.
@@ -1043,7 +1071,7 @@ The server will respond with a JSON object containing the specific assistance of
 This endpoint allows the client to create a new assistance offer. The user must provide the necessary details for the offer, such as expiration date, city, address, postal code, and geolocation data (latitude and longitude). If the geolocation data (latitude and longitude) is not provided, the server will attempt to fetch it using the user information. The expiration date must be at least 24 hours in the future.
 
 ### URL
-POST `/api/assistance-offer/create-assistance`
+POST `https://developer-proyect-dana.vercel.app/secure/api/v1/assistance-offer/create-assistance`
 
 ### Request Body
 The request body should contain the following parameters:
@@ -1058,7 +1086,7 @@ The request body should contain the following parameters:
 - `postalcode`: (optional) The postal code of the assistance location. If not provided, the user's postal code will be used.
 - `lat`: (optional) Latitude of the location. If not provided, the server will attempt to fetch them based on the provided address, city, and postal code.
 - `lon`: (optional) Longitude of the location. If not provided, the server will attempt to fetch them based on the provided address, city, and postal code.
-- `typeOffer`: (required) The type of the assistance offer. It can be one of the following:
+- `typeOffer`: (required) An array of objects including the type and the quantity of the assistance offer. The quantity must be 1 or more and the type can be one of the following:
   - `'accommodation'`
   - `'hygiene'`
   - `'food'`
@@ -1074,7 +1102,10 @@ The request body should contain the following parameters:
   "userId": "6729dc82810229f45e0ff022",
   "expires": "2024-12-31",
   "img": "https://www.gisinfo.net/images/news_main/first_news_images/1940_image_400.jpg",
-  "typeOffer": "accommodation"
+  "typeOffer": {
+        type: "accommodation",
+        quantity: 2
+      }
 }
 ```
 
@@ -1090,6 +1121,13 @@ The server will respond with a JSON object containing the created assistance off
 {
   "message": "Assistance Offer successfully created",
   "assistanceOffer": {
+    "location": {
+				"type": "Point",
+				"coordinates": [
+					-0.504228,
+					38.3451509
+				]
+			},
     "_id": "672aa137421157a5f26eac42",
     "title": "Free Accommodation in Alicante",
     "description": "We are offering free accommodation for those in need in Alicante.",
@@ -1102,7 +1140,10 @@ The server will respond with a JSON object containing the created assistance off
     "postalcode": "03006",
     "lat": "38.3451509",
     "lon": "-0.504228",
-    "typeOffer": "accommodation",
+    "typeOffer": {
+        type: "accommodation",
+        quantity: 2
+      }
     "publicationDate": "2024-11-05T22:50:31.605Z",
     "createdAt": "2024-11-05T22:50:31.606Z",
     "updatedAt": "2024-11-05T23:15:48.240Z",
@@ -1127,7 +1168,7 @@ The server will respond with a JSON object containing the created assistance off
 This endpoint allows a user to update an existing assistance offer. The user must be the creator of the assistance offer to update it. The offer details (including expiration date, location, etc.) can be modified, and if the address is updated, geolocation data will be recalculated. 
 
 ### URL
-PUT `/api/assistance-offer/update-assistance/:id`
+PUT `https://developer-proyect-dana.vercel.app/secure/api/v1/assistance-offer/create-assistance/update-assistance/:id`
 
 ### URL Parameters
 - `id`: (required) The ID of the assistance offer to be updated.
@@ -1145,11 +1186,11 @@ The request body should contain the following parameters:
 - `postalcode`: (optional) The postal code of the assistance location. If not provided, the user's postal code will be used.
 - `lat`: (optional) Latitude of the location. If not provided, the server will attempt to fetch it based on the provided address, city, and postal code.
 - `lon`: (optional) Longitude of the location. If not provided, the server will attempt to fetch it based on the provided address, city, and postal code.
-- `typeOffer`: (optional) The type of the assistance offer. It can be one of the following:
-  - `'accommodation'`
-  - `'hygiene'`
-  - `'food'`
-  - `'pet_fostering'`
+- `typeOffer`: (optional) An array of objects including the type and the quantity of the assistance offer. The quantity must be 1 or more and the type can be one of the following:
+  - `accommodation`
+  - `hygiene`
+  - `food`
+  - `pet_fostering`
   
 ### Request Headers
 - **Authorization**: (required) The client must include the Authorization header with the JWT token or session information of the authenticated user.
@@ -1163,6 +1204,13 @@ The server will respond with a JSON object containing the updated assistance off
 {
   "message": "Assistance Offer successfully updated",
   "assistanceOffer": {
+    "location": {
+				"type": "Point",
+				"coordinates": [
+					-0.504228,
+					38.3451509
+				]
+			},
     "_id": "6729dc82810229f45e0ff022",
     "title": "Offer for Pet Fostering",
     "description": "Temporary care for pets in need.",
@@ -1173,7 +1221,10 @@ The server will respond with a JSON object containing the updated assistance off
     "postalcode": "03001",
     "lat": "38.3451509",
     "lon": "-0.504228",
-    "typeOffer": "pet_fostering",
+    "typeOffer": {
+        type: "pet_fostering",
+        quantity: 1
+      }
     "userId": "6729dc82810229f45e0ff022",
     "createdAt": "2024-11-05T22:50:31.605Z",
     "updatedAt": "2024-11-06T10:20:15.000Z"
@@ -1196,7 +1247,7 @@ The server will respond with a JSON object containing the updated assistance off
 This endpoint allows the client to delete an existing assistance offer by its unique ID. If the offer is successfully deleted, a 204 status code is returned. If the offer cannot be found, a 404 status code is returned.
 
 ### URL
-DELETE `/api/assistance-offer/delete-assistance/:id`
+DELETE `https://developer-proyect-dana.vercel.app/secure/api/v1/assistance-offer/create-assistance/delete-assistance/:id`
 
 ### URL Parameters
 - `id` (required): The unique identifier of the assistance offer to be deleted.
@@ -1233,19 +1284,19 @@ The server will respond with a JSON object containing the message indicating whe
 This endpoint allows clients to retrieve a filtered list of assistance offers based on location, assistance type, or proximity to a geographical point. If useLocation=true, the client must provide lat, lon, and distance for a proximity search; otherwise, the client can specify a city using location.
 
 ### URL
-- GET `/assistance-offers/filter`
+- GET `https://developer-proyect-dana.vercel.app/secure/api/v1/assistance-offer/create-assistance/filter`
 
 ### Query Parameters
-| Parameter       | Type     | Description                                                                                 |
-|-----------------|----------|---------------------------------------------------------------------------------------------|
-| `useLocation`   | Boolean  | Set to true to use current location coordinates for search.   |
-| `lat`           | Number   | Latitude for proximity search. Required if `useLocation=true`.                              |
-| `lon`           | Number   | Longitude for proximity search. Required if `useLocation=true`.                             |
-| `distance`      | Number   | Radius in kilometers for the proximity search. Required if `useLocation=true`.     |
-| `location`      | String   | City or location name for a non-geographical search. Optional, used if `useLocation=false`. |
-| `assistanceType`| String   | Type of assistance required, e.g., `accommodation`, `hygiene`, `food`, `pet_fostering`. Optional.|
-| `page`          | Number   | Page number for pagination. Default is 1.|
-| `limit`         | Number   | Number of results per page for pagination. Default is 10.|
+| Parameter       | Type     | Description                                                                                       |
+|-----------------|----------|-------------------------------------------------------------------------------------------------- |
+| `useLocation`   | Boolean  | Set to true to use current location coordinates for search.                                       |
+| `lat`           | Number   | Latitude for proximity search. Required if `useLocation=true`. (lat should always be positive)    |
+| `lon`           | Number   | Longitude for proximity search. Required if `useLocation=true`. (lon should always be negative)   |
+| `distance`      | Number   | Radius in kilometers for the proximity search. Required if `useLocation=true`.                    |
+| `location`      | String   | City or location name for a non-geographical search. Optional, used if `useLocation=false`.       |
+| `assistanceType`| String   | Type of assistance required, e.g., `accommodation`, `hygiene`, `food`, `pet_fostering`. Optional. |
+| `page`          | Number   | Page number for pagination. Default is 1.                                                         |
+| `limit`         | Number   | Number of results per page for pagination. Default is 10.                                         |
 
 ### Example Requests
 #### Search by Current Location (Proximity Search)
@@ -1294,7 +1345,7 @@ The server responds with a JSON object containing the following:
 			},
 			"_id": "672b70a215468b25ff8c2f7b",
 			"title": "UPDATE 2 🤣",
-			"description": "Tengo dispolnible una habitación para dormir.",
+			"description": "Tengo disponible una habitación para dormir.",
 			"status": true,
 			"userId": "672953991f7f64ac65037a94",
 			"expires": "2024-11-08T00:00:00.000Z",
@@ -1302,7 +1353,10 @@ The server responds with a JSON object containing the following:
 			"city": "Alicante",
 			"address": "Pasaje metal 7, 5-A",
 			"postalcode": "03006",
-			"typeOffer": "hygiene",
+			"typeOffer": {
+        type: "accommodation",
+        quantity: 2
+      }
 			"createdAt": "2024-11-06T13:35:30.483Z",
 			"updatedAt": "2024-11-06T13:35:30.483Z",
 			"__v": 0
