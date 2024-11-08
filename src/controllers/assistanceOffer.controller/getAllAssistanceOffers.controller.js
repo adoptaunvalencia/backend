@@ -98,7 +98,7 @@ const getFilterOffers = async (req, res, next) => {
       query = query.where('city').equals(location);
     }
     if (assistanceType) {
-      query = query.where('typeOffer').equals(assistanceType);
+      query = query.where('typeOffer.type').equals(assistanceType);
     }
     if (isAuth) {
       query = query.populate({
