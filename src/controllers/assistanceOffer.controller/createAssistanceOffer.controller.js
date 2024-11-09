@@ -4,9 +4,17 @@ const fetchGeoCode = require('../../utils/fetchGeoCode');
 const formatForURL = require('../../utils/formatForURL');
 
 const createAssistanceOffer = async (req, res, next) => {
-  const { expires, city, address, postalcode, lat, lon } = req.body;
+  const { title, description, expires, city, address, postalcode, lat, lon } = req.body;
   const { user } = req;
   let geocodeData;
+
+  if (title && title.length  > 50) {
+    return res.status(400).json({ message: 'Title must be 50 characters or less' })
+  }
+  if (description && description.length > 256) {
+    return res.status(400).json({ message: 'Description must be 256 characters or less' })
+  }
+
   try {
     if (!lat || !lon) {
       const newCity = formatForURL(city);
