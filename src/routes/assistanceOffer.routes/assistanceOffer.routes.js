@@ -9,6 +9,7 @@ const updateAssistanceOffer = require('../../controllers/assistanceOffer.control
 const deleteAssistanceOffer = require('../../controllers/assistanceOffer.controller/deleteAssistanceOffer.controller');
 const authenticateUser = require('../../middleware/authenticateUserMiddleware');
 const isAuth = require('../../middleware/isAuth');
+const validateOffer = require('../../middleware/validateOfferMiddleware');
 const {
   imgAssistanceOffer,
 } = require('../../middleware/checkAvatarMiddleware');
@@ -18,6 +19,7 @@ const {
 ROUTER.post(
   '/create-assitances',
   authenticateUser,
+  validateOffer,
   /* imgAssistanceOffer.single('img'), */
   createAssistanceOffer,
 );
@@ -29,6 +31,7 @@ ROUTER.get('/get-assistance/:id', isAuth, getAssistanceOffer);
 ROUTER.put(
   '/update-assistance/:id',
   authenticateUser,
+  validateOffer,
   /* imgAssistanceOffer.single('img'), */
   updateAssistanceOffer,
 );
