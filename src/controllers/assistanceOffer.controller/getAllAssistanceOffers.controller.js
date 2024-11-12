@@ -4,7 +4,7 @@ const AssistanceOffer = require('../../models/assistance-offer-model/assistanceO
 const getAllAssistanceOffers = async (req, res, next) => {
   // CLIENT = /api/assistance-offers?page=1&limit=10
   const { isAuth } = req;
-  const { page = 1, limit = 10 } = req.query;
+  const { page = 1, limit = 100, sort = 'recent' } = req.query;
   const skip = (page - 1) * limit;
   try {
     const pageNumber = parseInt(page, 10);
@@ -22,6 +22,10 @@ const getAllAssistanceOffers = async (req, res, next) => {
     }
 
     let query = AssistanceOffer.find();
+
+    if (sort === 'recent') {
+      query = query.sort({ createdAt: -1 });
+    }
 
     if (isAuth) {
       query = query.populate({
