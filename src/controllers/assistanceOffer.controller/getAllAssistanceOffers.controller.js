@@ -1,10 +1,29 @@
 const User = require('../../models/users-model/user.model');
 const AssistanceOffer = require('../../models/assistance-offer-model/assistanceOffer.model');
 
+const getAllAssistanceOffersMap = async (req, res, next) => {
+  const { isAuth } = req;
+  let query = AssistanceOffer.find();
+  try {
+    if (isAuth) {
+      query = query.populate({
+        path: 'userId',
+        select: '-password -lastname -email -birthDate -city -address -postalcode -roles -lat -lon',
+      });
+    }
+    const assistancesOffers = await query
+    return res.status(200).json({
+      assistancesOffers: assistancesOffers,
+    });
+  } catch (error) {
+    next(error)
+  }
+};
+
 const getAllAssistanceOffers = async (req, res, next) => {
   // CLIENT = /api/assistance-offers?page=1&limit=10
   const { isAuth } = req;
-  const { page = 1, limit = 10 } = req.query;
+  const { page = 1, limit = 100, sort = 'recent' } = req.query;
   const skip = (page - 1) * limit;
   try {
     const pageNumber = parseInt(page, 10);
@@ -23,10 +42,14 @@ const getAllAssistanceOffers = async (req, res, next) => {
 
     let query = AssistanceOffer.find();
 
+    if (sort === 'recent') {
+      query = query.sort({ createdAt: -1 });
+    }
+
     if (isAuth) {
       query = query.populate({
         path: 'userId',
-        select: '-password -email',
+        select: '-password -lastname -email -birthDate -city -address -postalcode -roles -lat -lon',
       });
     }
     const offers = await query.skip(skip).limit(limit);
@@ -122,4 +145,8 @@ const getFilterOffers = async (req, res, next) => {
   }
 };
 
-module.exports = { getAllAssistanceOffers, getFilterOffers };
+module.exports = {
+  getAllAssistanceOffersMap,
+  getAllAssistanceOffers,
+  getFilterOffers,
+};
