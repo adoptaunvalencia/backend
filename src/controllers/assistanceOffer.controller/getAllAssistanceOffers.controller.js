@@ -13,7 +13,7 @@ const getAllAssistanceOffersMap = async (req, res, next) => {
     }
     const assistancesOffers = await query
     return res.status(200).json({
-      assistancesOffers: assistancesOffers,
+      offers: assistancesOffers,
     });
   } catch (error) {
     next(error)
@@ -56,7 +56,7 @@ const getAllAssistanceOffers = async (req, res, next) => {
     const totalOffers = await AssistanceOffer.countDocuments();
 
     return res.status(200).json({
-      assistancesOffers: offers,
+      offers: offers,
       total: totalOffers,
       page,
       totalPages: Math.ceil(totalOffers / limit),
@@ -133,7 +133,7 @@ const getFilterOffers = async (req, res, next) => {
     query = query.skip(skip).limit(parseInt(limit));
     const offers = await query;
     return res.status(200).json({
-      assistanceOffers: offers,
+      offers: offers,
       total,
       page: parseInt(page),
       totalPages: Math.ceil(total / limit),

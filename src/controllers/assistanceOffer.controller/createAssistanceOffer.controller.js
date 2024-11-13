@@ -41,7 +41,7 @@ const createAssistanceOffer = async (req, res, next) => {
     await assistanceOffer.save();
     return res.status(201).json({
       message: 'Assistance Offer successfully created',
-      assistanceOffer,
+      offers:assistanceOffer,
     });
   } catch (error) {
     next(error);
