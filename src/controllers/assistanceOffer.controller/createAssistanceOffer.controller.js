@@ -21,12 +21,12 @@ const createAssistanceOffer = async (req, res, next) => {
         });
       }
     }
-    const comproveExpire = comproveDate(expires);
+    /* const comproveExpire = comproveDate(expires);
     if (!comproveExpire) {
       return res.status(400).json({
         message: 'The expiration date must be at least 24 hours in the future.',
       });
-    }
+    } */
 
     const location = {
       type: 'Point',
