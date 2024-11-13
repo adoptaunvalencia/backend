@@ -3,6 +3,7 @@ const createAssistanceOffer = require('../../controllers/assistanceOffer.control
 const {
   getAllAssistanceOffers,
   getFilterOffers,
+  getAllAssistanceOffersMap,
 } = require('../../controllers/assistanceOffer.controller/getAllAssistanceOffers.controller');
 const getAssistanceOffer = require('../../controllers/assistanceOffer.controller/getAssistanceOfferById.controller');
 const updateAssistanceOffer = require('../../controllers/assistanceOffer.controller/updateAssistanceOffer.controller');
@@ -25,6 +26,7 @@ ROUTER.post(
 );
 //GET ALL ASSISTANCE OFFERS
 ROUTER.get('/', isAuth, getAllAssistanceOffers);
+ROUTER.get('/map-offers', isAuth, getAllAssistanceOffersMap);
 //GET ASSISTANCE OFFER BY ID
 ROUTER.get('/get-assistance/:id', isAuth, getAssistanceOffer);
 //UPDATE ASSISTANCE OFFER

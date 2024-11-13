@@ -1,6 +1,25 @@
 const User = require('../../models/users-model/user.model');
 const AssistanceOffer = require('../../models/assistance-offer-model/assistanceOffer.model');
 
+const getAllAssistanceOffersMap = async (req, res, next) => {
+  const { isAuth } = req;
+  let query = AssistanceOffer.find();
+  try {
+    if (isAuth) {
+      query = query.populate({
+        path: 'userId',
+        select: '-password -lastname -email -birthDate -city -address -postalcode -roles -lat -lon',
+      });
+    }
+    const assistancesOffers = await query
+    return res.status(200).json({
+      assistancesOffers: assistancesOffers,
+    });
+  } catch (error) {
+    next(error)
+  }
+};
+
 const getAllAssistanceOffers = async (req, res, next) => {
   // CLIENT = /api/assistance-offers?page=1&limit=10
   const { isAuth } = req;
@@ -30,7 +49,7 @@ const getAllAssistanceOffers = async (req, res, next) => {
     if (isAuth) {
       query = query.populate({
         path: 'userId',
-        select: '-password -email',
+        select: '-password -lastname -email -birthDate -city -address -postalcode -roles -lat -lon',
       });
     }
     const offers = await query.skip(skip).limit(limit);
@@ -126,4 +145,8 @@ const getFilterOffers = async (req, res, next) => {
   }
 };
 
-module.exports = { getAllAssistanceOffers, getFilterOffers };
+module.exports = {
+  getAllAssistanceOffersMap,
+  getAllAssistanceOffers,
+  getFilterOffers,
+};
