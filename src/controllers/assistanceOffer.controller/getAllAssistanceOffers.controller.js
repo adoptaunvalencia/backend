@@ -23,7 +23,7 @@ const getAllAssistanceOffersMap = async (req, res, next) => {
 const getAllAssistanceOffers = async (req, res, next) => {
   // CLIENT = /api/assistance-offers?page=1&limit=10
   const { isAuth } = req;
-  const { page = 1, limit = 2, sort = 'recent' } = req.query;
+  const { page = 1, limit = 50, sort = 'recent' } = req.query;
   const skip = (page - 1) * limit;
   try {
     const pageNumber = parseInt(page, 10);
