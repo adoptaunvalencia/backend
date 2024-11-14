@@ -1,8 +1,4 @@
-const { sendMail } = require('../../../config/nodemailer')
-
-const emailNewPassword = async (user) => {
-  const htmlContent = `
-    <!DOCTYPE html>
+<!DOCTYPE html>
     <html>
     <head>
       <style>
@@ -70,18 +66,39 @@ const emailNewPassword = async (user) => {
           max-width: 100px;
           margin-bottom: 10px;
         }
+
+        .box {
+          background-color: #f9f9f9;
+          border: 1px solid #d0d0d0;
+          padding: 10px;
+          margin: 20px 0;
+          border-radius: 5px;
+        }
+
       </style>
     </head>
     <body>
       <div class="container">
         <div class="header">
-          <h1>Contraseña actualizada</h1>
+           <h1>Solicitud de contacto</h1>
           <img src="https://raw.githubusercontent.com/adoptaunvalencia/acoge-ayuda/main/src/assets/images/logo.webp" alt="Logo de Adopta Un Valenciano">
         </div>
 
         <p>Hola ${user.name},</p>
-        <p>Tu contraseña ha sido actualizada con éxito. Si no realizaste este cambio, por favor, contáctanos de inmediato.</p>
-        <p>Atentamente,<br>El equipo de Adopta un Valenciano</p>
+        <p>Gracias por ofrecer tu ayuda en nuestra plataforma. Un usuario que necesita asistencia ha contactado contigo a través de nuestra página. A continuación, te compartimos el mensaje que ha enviado:</p>
+
+        <div class="box">
+          <p><strong>${email.subject}</strong></p>
+          <p>${email.body}</p>
+        </div>
+
+        <p>Para que podais contactar, aquí te facilitamos la información de contacto del usuario que te ha escrito:</p>
+        <div class="box">
+          <p><strong>Email:</strong> ${contactEmail}</p>
+          <p><strong>Teléfono:</strong> ${contactPhone}</p>
+        </div>
+
+        <p>Atentamente,<br>El equipo de Adopta Un Valenciano</p>
 
         <div class="footer">
           <div class="footer-content">
@@ -93,8 +110,3 @@ const emailNewPassword = async (user) => {
       </div>
     </body>
     </html>
-  `;
-  await sendMail(user.email, `Confirmación de nueva contraseña`, htmlContent);
-};
-
-module.exports = emailNewPassword;
