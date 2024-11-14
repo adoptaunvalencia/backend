@@ -5,6 +5,7 @@ const registerUser = require('../../middleware/registerMiddleware');
 const loginUser = require('../../middleware/loginMiddleware');
 const authenticateUser = require('../../middleware/authenticateUserMiddleware');
 const getProfile = require('../../controllers/user.controller/getProfile.controller');
+const getUserById = require('../../controllers/user.controller/getUserById.controller')
 const {
   forgotPassword,
   comproveToken,
@@ -21,6 +22,8 @@ const { profileAvatar } = require('../../middleware/checkAvatarMiddleware');
 //ROUTE | MIDDLEWARE | CONTROLLER
 //GET PROFILE
 ROUTER.get('/', authenticateUser, getProfile);
+//GET USER BY ID
+ROUTER.get('/get-user/:id', authenticateUser, getUserById);
 //ROUTE REGISTER
 ROUTER.post('/register-user', registerUser, RegisterController);
 //LOGIN
