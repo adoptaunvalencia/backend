@@ -5,15 +5,14 @@ const validateEmail = async (req, res, next) => {
       return res.status(400).json({ message: 'All fields required' });
     }
     if (subject && subject.length > 150) {
-      return res.status(400).json({ message: 'Subject must be 50 characters or less' });
+      return res.status(400).json({ message: 'Subject must be 150 characters or less' });
     }
     if (body && body.length > 599) {
-      return res.status(400).json({ message: 'Body must be 256 characters or less' });
+      return res.status(400).json({ message: 'Body must be 599 characters or less' });
     }
     next();
   } catch (error) {
     next(error);
-    console.log(error)
   }
 };
 
