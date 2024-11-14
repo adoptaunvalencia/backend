@@ -24,28 +24,75 @@ const emailWelcome = async (user) => {
           color: #333333;
         }
 
-        h1 {
+        .header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 20px;
+        }
+
+        .header h1 {
           font-size: 24px;
           color: #d32f2f;
           font-weight: bold;
-          text-align: center;
+          margin: 0;
+        }
+
+        .header img {
+          max-width: 100px;
+          height: auto;
+        }
+
+        p {
+          font-size: 16px;
+          line-height: 1.5;
         }
 
         .footer {
           margin-top: 20px;
           font-size: 12px;
-          color: #888888;
+          color: black;
           text-align: center;
+          border-top: 1px solid #e0e0e0;
+          padding-top: 10px;
+        }
+
+        .footer-content {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 20px;
+          flex-wrap: wrap;
+          margin: 20px;
+        }
+
+        .footer img {
+          max-width: 100px;
+          margin-bottom: 10px;
         }
       </style>
     </head>
     <body>
       <div class="container">
-        <h1>Bienvenido</h1>
-        <p>Hola ${user.name},</p>
+        <div class="header">
+          <h1>Bienvenido, ${user.name}</h1>
+          <img src="https://raw.githubusercontent.com/adoptaunvalencia/acoge-ayuda/main/src/assets/images/logo.webp" alt="Logo de Adopta Un Valenciano">
+        </div>
+
         <p>Gracias por unirte a nuestra comunidad.</p>
-        <p>Si tienes alguna pregunta o necesitas ayuda, no dudes en contactarnos.</p>
-        <p class="footer">Saludos,<br/>El equipo de Adopta Un Valenciano</p>
+        <p>Nos complace tenerte con nosotros en estos momentos difíciles. A través de esta red, esperamos que encuentres el apoyo y la ayuda que necesitas, y que, a su vez, puedas compartir tu solidaridad con aquellos que más lo requieren.</p>
+        <p>Si tienes alguna pregunta o necesitas asistencia, no dudes en ponerte en contacto con nosotros respondiendo a este correo o escribiendo a <strong>adoptaunvalencia@gmail.com</strong>. Si prefieres obtener un número de contacto, también puedes solicitarlo enviando un correo a la misma dirección, y estaremos encantados de ayudarte.</p>
+        <p>Si deseas eliminar tus datos de nuestra base, por favor, envíanos un correo solicitando la baja.</p>
+        <p>Gracias por confiar en nosotros.</p>
+        <p>Atentamente,<br>El equipo de Adopta un Valenciano</p>
+
+        <div class="footer">
+          <div class="footer-content">
+            <h2><strong>Adopta Un<br>Valenciano</strong></h2>
+            <img src="https://raw.githubusercontent.com/adoptaunvalencia/acoge-ayuda/main/src/assets/images/logo.webp" alt="Logo de Adopta Un Valenciano">
+          </div>
+          <p>Unidos por una misma causa</p>
+        </div>
       </div>
     </body>
     </html>

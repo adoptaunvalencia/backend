@@ -1,7 +1,7 @@
 const validateEmail = async (req, res, next) => {
-  const { userSendId, userReceiveId, subject, body } = req.body;
+  const { userSend, userReceive, subject, body } = req.body;
   try {
-    if (!userSendId || !userReceiveId || !subject || !body) {
+    if (!userSend || !userReceive || !subject || !body) {
       return res.status(400).json({ message: 'All fields required' });
     }
     if (subject && subject.length > 150) {
