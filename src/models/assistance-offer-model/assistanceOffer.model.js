@@ -18,10 +18,10 @@ const assistanceOfferSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
     },
-    expires: {
+/*     expires: {
       type: Date,
       required: true,
-    },
+    }, */
     img: {
       type: String,
       default:
