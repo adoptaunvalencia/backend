@@ -8,22 +8,23 @@ const getAllAssistanceOffersMap = async (req, res, next) => {
     if (isAuth) {
       query = query.populate({
         path: 'userId',
-        select: '-password -lastname -email -birthDate -city -address -postalcode -roles -lat -lon',
+        select:
+          '-password -lastname -email -birthDate -city -address -postalcode -roles -lat -lon',
       });
     }
-    const assistancesOffers = await query
+    const assistancesOffers = await query;
     return res.status(200).json({
       offers: assistancesOffers,
     });
   } catch (error) {
-    next(error)
+    next(error);
   }
 };
 
 const getAllAssistanceOffers = async (req, res, next) => {
   // CLIENT = /api/assistance-offers?page=1&limit=10
   const { isAuth } = req;
-  const { page = 1, limit = 5, sort = 'recent' } = req.query;
+  const { page = 1, limit = 5 } = req.query;
   const skip = (page - 1) * limit;
   try {
     const pageNumber = parseInt(page, 10);
@@ -42,14 +43,11 @@ const getAllAssistanceOffers = async (req, res, next) => {
 
     let query = AssistanceOffer.find();
 
-    if (sort === 'recent') {
-      query = query.sort({ createdAt: -1 });
-    }
-
     if (isAuth) {
       query = query.populate({
         path: 'userId',
-        select: '-password -lastname -email -birthDate -city -address -postalcode -roles -lat -lon',
+        select:
+          '-password -lastname -email -birthDate -city -address -postalcode -roles -lat -lon',
       });
     }
     const offers = await query.skip(skip).limit(limit);
