@@ -9,14 +9,14 @@ const updateAssistanceOffer = async (req, res, next) => {
   const { expires, city, address, postalcode, lat, lon } = req.body;
   const { user } = req;
   let geocodeData;
-
+  
   try {
-    const comproveExpire = comproveDate(expires);
+    /* const comproveExpire = comproveDate(expires);
     if (!comproveExpire) {
       return res.status(400).json({
         message: 'The expiration date must be at least 24 hours in the future.',
       });
-    }
+    } */
     if (!lat || !lon) {
       const newCity = formatForURL(city);
       const newAddress = formatForURL(address);
@@ -37,7 +37,7 @@ const updateAssistanceOffer = async (req, res, next) => {
         message: 'Assistance offer not found',
       });
     }
-    
+
     if (assistanceOffer.userId.toString() !== user._id.toString()) {
       return res.status(403).json({
         message: 'You are not authorized to update this assistance offer.',
