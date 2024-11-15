@@ -2,18 +2,18 @@ const AssistanceOffer = require('../../models/assistance-offer-model/assistanceO
 
 const deleteAssistanceOffer = async (req, res, next) => {
   try {
-    const deleteAssistanceOffer = await AssistanceOffer.findByIdAndDelete(req.params.id);
+    const deleteAssistanceOffer = await AssistanceOffer.findByIdAndDelete(
+      req.params.id,
+    );
     if (!deleteAssistanceOffer) {
-      return res
-        .status(404)
-        .json({ message: 'Assistance Offer not found' });
+      return res.status(404).json({ message: 'Assistance Offer not found' });
     }
     return res
-      .status(204)
+      .status(200)
       .json({ message: 'Assistance Offer successfully deleted' });
   } catch (error) {
     next(error);
   }
-}
+};
 
 module.exports = deleteAssistanceOffer;
