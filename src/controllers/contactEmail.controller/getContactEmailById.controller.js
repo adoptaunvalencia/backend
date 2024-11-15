@@ -16,7 +16,6 @@ const getContactEmailById = async (req, res, next) => {
       .json(ContactEmailById)
   } catch (error) {
     next(error);
-    console.log(error)
   }
 }
 

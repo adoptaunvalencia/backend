@@ -3,24 +3,23 @@ const emailContact = require('./emails/emailContact');
 
 const createContactEmail = async (req, res, next) => {
   try {
-    const { userSendId, userReceiveId, subject, body, userReceiveEmail } = req.body; 
+    const { userSend, userReceive, subject, body } = req.body; 
 
     const createContactEmail = new ContactEmail({
-      userSendId,
-      userReceiveId,
+      userSendId: userSend._id,
+      userReceiveId: userReceive._id,
       subject,
       body
     });
     await createContactEmail.save();
+    await emailContact(userSend, userReceive, createContactEmail);
 
-    await emailContact(userReceiveEmail, createContactEmail)
     return res.status(201).json({
       message: 'Contact Email successfully created',
       contactEmail: createContactEmail,
     });
   } catch (error) {
     next(error);
-    console.log(error)
   }
 }
 

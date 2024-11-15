@@ -39,9 +39,13 @@ const createAssistanceOffer = async (req, res, next) => {
       location,
     });
     await assistanceOffer.save();
+    const offer = await AssistanceOffer.findById(assistanceOffer._id).populate({
+      path: 'userId',
+      select: '-password -lastname -email -birthDate -city -address -postalcode -roles -lat -lon',
+    });
     return res.status(201).json({
       message: 'Assistance Offer successfully created',
-      offers:assistanceOffer,
+      offers:offer,
     });
   } catch (error) {
     next(error);
