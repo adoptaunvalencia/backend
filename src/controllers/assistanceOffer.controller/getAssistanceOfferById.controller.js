@@ -5,7 +5,7 @@ const getAssistanceOffer = async (req, res, next) => {
   const { isAuth } = req;
   const { id } = req.params;
   try {
-    let query = await AssistanceOffer.findById(id);
+    let query = AssistanceOffer.findById(id);
 
     if (isAuth) {
       query = query.populate({
