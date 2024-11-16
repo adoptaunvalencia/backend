@@ -5,9 +5,9 @@ const emailForgotPassword = require('./mails/emailForgotPassword.js');
 require('dotenv').config();
 
 const comproveToken = async (req, res, next) => {
-  const { token } = req.params;
+  const { verificationCode } = req.body;
   try {
-    const existToken = await User.findOne({ token });
+    const existToken = await User.findOne({ token:verificationCode });
     if (!existToken) {
       return res.status(400).json({ status: false });
     } else {
@@ -32,7 +32,7 @@ const forgotPassword = async (req, res, next) => {
     await user.save();
 
     //SEN EMAIL
-    await emailForgotPassword(user)
+    await emailForgotPassword(user);
 
     res.status(201).json({ message: 'Code sent to your email.' });
   } catch (error) {
