@@ -42,7 +42,6 @@ const updateAssistanceOffer = async (req, res, next) => {
       lat: lat || geocodeData[0].lat,
       lon: lon || geocodeData[0].lon,
     });
-
     await assistanceOffer.save();
     return res.status(200).json({
       message: 'Assistance Offer successfully updated',
