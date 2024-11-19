@@ -6,17 +6,10 @@ const formatForURL = require('../../utils/formatForURL');
 
 const updateAssistanceOffer = async (req, res, next) => {
   const { id } = req.params;
-  const { expires, city, address, postalcode, lat, lon } = req.body;
+  const { status, city, address, postalcode, lat, lon } = req.body;
   const { user } = req;
   let geocodeData;
-  
   try {
-    /* const comproveExpire = comproveDate(expires);
-    if (!comproveExpire) {
-      return res.status(400).json({
-        message: 'The expiration date must be at least 24 hours in the future.',
-      });
-    } */
     if (!lat || !lon) {
       const newCity = formatForURL(city);
       const newAddress = formatForURL(address);
@@ -42,17 +35,15 @@ const updateAssistanceOffer = async (req, res, next) => {
       return res.status(403).json({
         message: 'You are not authorized to update this assistance offer.',
       });
-    }
-
+    }    
     assistanceOffer.set({
       ...req.body,
-      userId: user._id, // El usuario sigue siendo el mismo
+      userId: user._id,
       lat: lat || geocodeData[0].lat,
       lon: lon || geocodeData[0].lon,
     });
 
     await assistanceOffer.save();
-
     return res.status(200).json({
       message: 'Assistance Offer successfully updated',
       assistanceOffer,
