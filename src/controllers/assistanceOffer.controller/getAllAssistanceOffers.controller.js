@@ -3,20 +3,21 @@ const AssistanceOffer = require('../../models/assistance-offer-model/assistanceO
 
 const getAllAssistanceOffersMap = async (req, res, next) => {
   const { isAuth } = req;
-  let query = AssistanceOffer.find();
+  let query = AssistanceOffer.find().sort({ createdAt: -1 });
   try {
     if (isAuth) {
       query = query.populate({
         path: 'userId',
-        select: '-password -lastname -email -birthDate -city -address -postalcode -roles -lat -lon',
+        select:
+          '-password -lastname -email -birthDate -city -address -postalcode -roles -lat -lon',
       });
     }
-    const assistancesOffers = await query
+    const assistancesOffers = await query;
     return res.status(200).json({
       offers: assistancesOffers,
     });
   } catch (error) {
-    next(error)
+    next(error);
   }
 };
 
@@ -49,7 +50,8 @@ const getAllAssistanceOffers = async (req, res, next) => {
     if (isAuth) {
       query = query.populate({
         path: 'userId',
-        select: '-password -lastname -email -birthDate -city -address -postalcode -roles -lat -lon',
+        select:
+          '-password -lastname -email -birthDate -city -address -postalcode -roles -lat -lon',
       });
     }
     const offers = await query.skip(skip).limit(limit);
