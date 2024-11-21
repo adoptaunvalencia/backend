@@ -18,6 +18,11 @@ const assistanceOfferSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
     },
+    url: {
+      type: String,
+      trim: true,
+      required: false,
+    },
 /*     expires: {
       type: Date,
       required: true,
