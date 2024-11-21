@@ -3,13 +3,21 @@ const comproveDate = require('../../utils/comproveDate');
 const fetchGeoCode = require('../../utils/fetchGeoCode');
 const formatForURL = require('../../utils/formatForURL');
 
+const VALID_TYPES = ['accommodation', 'hygiene', 'food', 'pet_fostering', 'other'];
+
 const createAssistanceOffer = async (req, res, next) => {
-  const { expires, city, address, postalcode, lat, lon } = req.body;
+  console.log(req.body);
+  
+  const { expires, city, address, postalcode, lat, lon, typeOffer } = req.body;
   const { user } = req;
   let geocodeData;
 
   try {
-    //! CONSULTAR TIPO DE AYUDA
+    if (!typeOffer || !Array.isArray(typeOffer) || typeOffer.length === 0) {
+      return res.status(400).json({
+        message: 'The typeOffer field is required and must be a non-empty array.',
+      });
+    }
 
     if (!lat || !lon) {
       const newCity = formatForURL(city);
