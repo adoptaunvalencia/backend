@@ -9,6 +9,8 @@ const createAssistanceOffer = async (req, res, next) => {
   let geocodeData;
 
   try {
+    //! CONSULTAR TIPO DE AYUDA
+
     if (!lat || !lon) {
       const newCity = formatForURL(city);
       const newAddress = formatForURL(address);
@@ -21,12 +23,6 @@ const createAssistanceOffer = async (req, res, next) => {
         });
       }
     }
-    /* const comproveExpire = comproveDate(expires);
-    if (!comproveExpire) {
-      return res.status(400).json({
-        message: 'The expiration date must be at least 24 hours in the future.',
-      });
-    } */
 
     const location = {
       type: 'Point',
@@ -38,11 +34,13 @@ const createAssistanceOffer = async (req, res, next) => {
       userId: user._id,
       location,
     });
+
     await assistanceOffer.save();
     const offer = await AssistanceOffer.findById(assistanceOffer._id).populate({
       path: 'userId',
       select: '-password -lastname -email -birthDate -city -address -postalcode -roles -lat -lon',
     });
+
     return res.status(201).json({
       message: 'Assistance Offer successfully created',
       offers:offer,
