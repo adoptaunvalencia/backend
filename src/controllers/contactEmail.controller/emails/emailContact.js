@@ -110,7 +110,7 @@ const emailContact = async (userSend, userReceive, email) => {
     </body>
     </html>
   `;
-  await sendMail(userReceive.email, 'Solicitud de contacto', htmlContent);
+  await sendMail(userReceive.email, `Solicitud de contacto: ${email.subject}`, htmlContent);
 };
 
 module.exports = emailContact;
