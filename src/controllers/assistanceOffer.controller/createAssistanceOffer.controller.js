@@ -15,20 +15,21 @@ const createAssistanceOffer = async (req, res, next) => {
   const { expires, city, address, postalcode, lat, lon, typeOffer } = req.body;
   const { user } = req;
   let geocodeData;
-
+  
   try {
     if (!typeOffer || !Array.isArray(typeOffer) || typeOffer.length === 0) {
       return res.status(400).json({
         message:
-          'The typeOffer field is required and must be a non-empty array.',
+        'The typeOffer field is required and must be a non-empty array.',
       });
     }
-
+    
     if (!lat || !lon) {
       const newCity = formatForURL(city);
       const newAddress = formatForURL(address);
       const newPC = formatForURL(postalcode);
       geocodeData = await fetchGeoCode(newAddress, newCity, newPC);
+      
       if (!geocodeData) {
         return res.status(400).json({
           message:
