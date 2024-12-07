@@ -15,10 +15,6 @@ const createContactEmail = async (req, res, next) => {
       subject,
       body,
     });
-    console.log(userSend);
-    console.log(userReceive);
-    console.log(createContactEmail);
-
     await createContactEmail.save();
     await emailContact(userSend, userReceive, createContactEmail);
 
