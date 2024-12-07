@@ -1,4 +1,4 @@
-const { sendMail } = require('../../../config/nodemailer')
+const { sendMail } = require('../../../config/nodemailer');
 
 const emailContact = async (userSend, userReceive, email) => {
   const htmlContent = `
@@ -74,6 +74,10 @@ const emailContact = async (userSend, userReceive, email) => {
           margin: 20px 0;
           border-radius: 5px;
         }
+        .text-red-bold{
+          color: #d32f2f;
+          font-weight: bold;
+        }
       </style>
     </head>
     <body>
@@ -96,8 +100,10 @@ const emailContact = async (userSend, userReceive, email) => {
           <p>Email: ${userSend.email}</p>
           <p>Teléfono: ${userSend.phone}</p>
         </div>
-
-        <p>Atentamente,<br>El equipo de Adopta Un Valenciano</p>
+        <p class='text-red-bold'>Te informamos que, debido a que tu oferta de asistencia ha sido contactada, procederemos a desactivarla.</p>
+        <p><strong>Si no llegas a un acuerdo con la persona que solicitó tu asistencia, puedes reactivar la oferta. De lo contrario, te recomendamos no activarla nuevamente para evitar un exceso de ofertas innecesarias.</strong></p>
+        <p>Atentamente,</p>
+        <p>El equipo de <strong>Adopta Un Valenciano</strong></p>
 
         <div class="footer">
           <div class="footer-content">
@@ -110,7 +116,10 @@ const emailContact = async (userSend, userReceive, email) => {
     </body>
     </html>
   `;
-  await sendMail(userReceive.email, `Solicitud de contacto: ${email.subject}`, htmlContent);
+  await sendMail(
+    userReceive.email,
+    `Solicitud de contacto: ${email.subject}`,
+    htmlContent,
+  );
 };
-
 module.exports = emailContact;

@@ -23,10 +23,6 @@ const assistanceOfferSchema = new mongoose.Schema(
       trim: true,
       required: false,
     },
-/*     expires: {
-      type: Date,
-      required: true,
-    }, */
     img: {
       type: String,
       default:
@@ -68,10 +64,10 @@ const assistanceOfferSchema = new mongoose.Schema(
         quantity: {
           type: Number,
           required: true,
-          min: 1, // Cantidad mínima de 1
+          min: 1,
         },
-      },
-    ],
+      },
+    ],
   },
   {
     collection: 'AssistanceOffer',

@@ -13,10 +13,6 @@ ROUTER.post(
   createContactEmail,
 );
 
-//GET CONTACT EMAIL BY ID
-ROUTER.get(
-  '/get-email/:id',
-  authenticateUser,
-  getContactEmailById);
+ROUTER.get('/get-email/:id', authenticateUser, getContactEmailById);
 
 module.exports = ROUTER;
