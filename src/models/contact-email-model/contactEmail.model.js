@@ -10,6 +10,10 @@ const contactEmailSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
     },
+    offerId:{
+      type: mongoose.Schema.Types.ObjectId,
+      ref:'AssistanceOffer'
+    },
     subject: {
       type: String,
       required: true,
