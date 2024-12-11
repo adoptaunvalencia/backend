@@ -33,13 +33,13 @@ const userSchema = new mongoose.Schema(
     },
     birthDate: {
       type: Date,
-      required: true,
+      required: false,
     },
     token: {
       type: String,
       trim: true,
     },
-    city: {
+   /*  city: {
       type: String,
       trim: true,
       required: true,
@@ -61,7 +61,7 @@ const userSchema = new mongoose.Schema(
     lon: {
       type: String,
       required: true,
-    },
+    }, */
     roles: {
       type: [String],
       enum: ['user', 'admin', 'volunteer'],

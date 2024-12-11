@@ -5,15 +5,15 @@ const formatForURL = require('../../utils/formatForURL');
 const fetchGeoCode = require('../../utils/fetchGeoCode');
 
 const RegisterController = async (req, res, next) => {
-  const { city, address, postalcode } = req.body;
+  /* const { city, address, postalcode } = req.body; */
   const email = req.body.email.toLowerCase();
   try {
     // FETCH GEOCODE
-    const newCity = formatForURL(city);
+   /*  const newCity = formatForURL(city);
     const newAddress = formatForURL(address);
     const newPC = formatForURL(postalcode);
-
-    const geocodeData = await fetchGeoCode(
+ */
+    /* const geocodeData = await fetchGeoCode(
       newAddress,
       newCity,
       newPC
@@ -25,12 +25,12 @@ const RegisterController = async (req, res, next) => {
           message:
             'Unable to fetch geolocation data. Please check the address information and try again.',
         });
-    }
+    } */
     const createUser = new User({
       ...req.body,
       email,
-      lat: geocodeData[0].lat,
-      lon: geocodeData[0].lon,
+    /*   lat: geocodeData[0].lat,
+      lon: geocodeData[0].lon, */
     });
     await createUser.save();
     await emailWelcome(createUser);
