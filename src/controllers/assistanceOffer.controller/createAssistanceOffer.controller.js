@@ -12,7 +12,7 @@ const VALID_TYPES = [
 ];
 
 const createAssistanceOffer = async (req, res, next) => {
-  const { expires, city, address, postalcode, lat, lon, typeOffer } = req.body;
+  const { /* expires,*/ city, address, postalcode, lat, lon, typeOffer } = req.body;
   const { user } = req;
   let geocodeData;
   
@@ -40,7 +40,7 @@ const createAssistanceOffer = async (req, res, next) => {
 
     const location = {
       type: 'Point',
-      coordinates: [lon || geocodeData[0].lon, lat || geocodeData[0].lat],
+      coordinates: [/* lon || */ geocodeData[0].lon, /* lat || */ geocodeData[0].lat],
     };
 
     const assistanceOffer = new AssistanceOffer({
@@ -53,8 +53,10 @@ const createAssistanceOffer = async (req, res, next) => {
     const offer = await AssistanceOffer.findById(assistanceOffer._id).populate({
       path: 'userId',
       select:
-        '-password -lastname -email -birthDate -city -address -postalcode -roles -lat -lon',
+        '-password -lastname -email -roles -lat -lon',
     });
+    /* 
+    '-password -lastname -email -birthDate -city -address -postalcode -roles -lat -lon', */
 
     return res.status(201).json({
       message: 'Assistance Offer successfully created',
